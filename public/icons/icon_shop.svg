@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="132" height="132" viewBox="0 0 120 120">
+        <g transform="rotate(-4 60 60)">
+          <path d="M42,54 A18,18 0 0 1 78,54" fill="none" stroke="#6657DA" stroke-width="9" stroke-linecap="round" transform="translate(7,9)"></path>
+          <polygon points="28,54 92,54 102,100 18,100" fill="#6657DA" transform="translate(7,9)"></polygon>
+          <path d="M42,54 A18,18 0 0 1 78,54" fill="none" stroke="#1E1533" stroke-width="9" stroke-linecap="round"></path>
+          <path d="M44,54 A16,16 0 0 1 76,54" fill="none" stroke="#6c5ce7" stroke-width="4" stroke-linecap="round"></path>
+          <polygon points="28,54 92,54 102,100 18,100" fill="#FFD218" stroke="#1E1533" stroke-width="6" stroke-linejoin="round"></polygon>
+          <line x1="30" y1="70" x2="90" y2="70" stroke="#1E1533" stroke-width="3"></line>
+          <line x1="26" y1="86" x2="94" y2="86" stroke="#1E1533" stroke-width="3"></line>
+          <circle cx="60" cy="46" r="10" fill="#ED9ED6" stroke="#1E1533" stroke-width="5"></circle>
+        </g>
+      </svg>

@@ -1,0 +1,560 @@
+/* Studio booking card overlay (sits on top of the real studio map screenshot) */
+
+.bookingCard {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  background: linear-gradient(180deg, var(--card-grad-top) 0%, var(--card-grad-bottom) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.bookingName {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bookingMeta {
+  margin: 2px 0 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.bookingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bookingPrice {
+  font-size: 12px;
+  color: #efd28e;
+}
+
+.bookingButton {
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+/* Management / calendar mockup */
+
+.calendarMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendarHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendarDayLabel {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendarCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.calendarCellActive {
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  color: #ffffff;
+}
+
+.calendarDot {
+  flex-shrink: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--purple-2);
+}
+
+.calendarCellActive .calendarDot {
+  background: #ffffff;
+}
+
+.calendarEvent {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.calendarEventTime {
+  color: #efd28e;
+  font-weight: 600;
+}
+
+/* Library / storage mockup */
+
+.libraryMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.trackTile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.trackArt {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-1), #efd28e);
+}
+
+.trackInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.trackName {
+  margin: 0 0 6px;
+  font-size: 12px;
+}
+
+.waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.waveformBar {
+  width: 3px;
+  background: var(--purple-1);
+  border-radius: 2px;
+}
+
+/* Charts / leaderboard mockup */
+
+.chartsMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.podiumColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.podiumName {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.podiumBar {
+  width: 56px;
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(180deg, var(--card-grad-top) 0%, var(--card-grad-bottom) 100%);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.podiumRank {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Post creation mockup */
+
+.postMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.postMockupTitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.postOptions {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.postOption {
+  flex: 1;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.postOptionThumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.postMockupButton {
+  align-self: flex-end;
+  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+/* Wallet mockup */
+
+.walletMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.walletLabel {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.walletAmount {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #efd28e;
+}
+
+.walletActions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.walletButton {
+  font-size: 12px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.walletButtonGhost {
+  font-size: 12px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+}
+
+.walletHistory {
+  border-top: 1px solid var(--card-border);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.walletHistoryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.walletPositive {
+  color: #8fd6a8;
+}
+
+.walletNegative {
+  color: #e08585;
+}
+
+/* Contract mockup */
+
+.contractMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+
+.contractRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.contractTitle {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contractMeta {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.contractStatusSigned {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(90, 200, 140, 0.15);
+  border: 1px solid rgba(120, 210, 150, 0.4);
+  color: #b8e0c8;
+}
+
+.contractStatusPending {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(255, 210, 24, 0.12);
+  border: 1px solid rgba(255, 210, 24, 0.4);
+  color: #efd28e;
+}
+
+/* Lyrics editor mockup */
+
+.lyricsMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lyricsLines {
+  flex: 1;
+}
+
+.lyricsLine {
+  margin: 0 0 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.lyricsSpacer {
+  margin: 0 0 6px;
+  height: 4px;
+}
+
+.aiSuggestion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  border: 1px solid rgba(102, 87, 218, 0.4);
+  background: rgba(102, 87, 218, 0.1);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.aiTag {
+  align-self: flex-start;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* Marketplace mockup */
+
+.marketplaceMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.productTile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.productThumb {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.productInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.productName {
+  margin: 0;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.productPrice {
+  font-size: 12px;
+  color: #efd28e;
+  flex-shrink: 0;
+}
+
+/* Messaging mockup */
+
+.messagingMockup {
+  width: 100%;
+  height: 220px;
+  background: #14132a;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.messagingHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 10px;
+}
+
+.messagingAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-1), #efd28e);
+}
+
+.messagingContact {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.messagingThread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bubble {
+  max-width: 78%;
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.bubbleIncoming {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  border-bottom-left-radius: 4px;
+}
+
+.bubbleOutgoing {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}

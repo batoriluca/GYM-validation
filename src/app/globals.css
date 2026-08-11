@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-black: #0b0a14;
+  --card-grad-top: rgba(46, 51, 90, 0.35);
+  --card-grad-bottom: rgba(20, 19, 38, 0.35);
+  --card-border: rgba(255, 255, 255, 0.18);
+  --purple-1: #6657da;
+  --purple-2: #7743db;
+  --text-primary: #ffffff;
+  --text-secondary: #b6b6b6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--bg-black);
+  color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: "Poppins", sans-serif;
+}

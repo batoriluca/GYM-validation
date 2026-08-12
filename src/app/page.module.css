@@ -1,5 +1,6 @@
 .page {
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Header */
@@ -608,6 +609,10 @@
   .nav {
     justify-content: flex-start;
     mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+  }
+
+  .navSecondary {
+    display: none;
   }
 }
 

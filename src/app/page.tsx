@@ -54,11 +54,11 @@ export default function Home() {
           <Image src="/img/gym-logo-mark.png" alt="GrowYourMusic" width={50} height={40} className={styles.logoMark} />
         </div>
         <nav className={styles.nav}>
-          <a className={styles.navLink} href="#top">{t.nav.home}</a>
+          <a className={`${styles.navLink} ${styles.navSecondary}`} href="#top">{t.nav.home}</a>
           <a className={styles.navLink} href="#features">{t.nav.features}</a>
           <a className={styles.navLink} href="#audience">{t.nav.audience}</a>
           <a className={styles.navLink} href="#preregister-form">{t.nav.register}</a>
-          <a className={styles.navLink} href="#contact">{t.nav.contact}</a>
+          <a className={`${styles.navLink} ${styles.navSecondary}`} href="#contact">{t.nav.contact}</a>
         </nav>
         <div className={styles.headerActions}>
           <LanguageSwitcher />

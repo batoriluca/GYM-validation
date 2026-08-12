@@ -27,6 +27,8 @@ html,
 body {
   padding: 0;
   margin: 0;
+  width: 100%;
+  overflow-x: hidden;
   background: var(--bg-black);
   color: var(--text-primary);
   font-family: "Poppins", sans-serif;

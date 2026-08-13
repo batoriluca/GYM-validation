@@ -166,6 +166,14 @@ export default function ValidationQuiz({
     setStepIndex((i) => Math.max(0, i - 1))
   }
 
+  const handleSkip = () => {
+    if (isLastStep) {
+      submit()
+    } else {
+      setStepIndex((i) => i + 1)
+    }
+  }
+
   return (
     <div id={id} className={formStyles.card}>
       <div className={styles.header}>
@@ -359,7 +367,7 @@ export default function ValidationQuiz({
           <span className={styles.spacer} />
         )}
         <div className={styles.navRight}>
-          <button type="button" className={styles.skipButton} onClick={onDone} disabled={sending}>
+          <button type="button" className={styles.skipButton} onClick={handleSkip} disabled={sending}>
             {t.quiz.skipButton}
           </button>
           <button

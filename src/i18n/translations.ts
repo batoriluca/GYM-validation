@@ -50,8 +50,10 @@ export const TRANSLATIONS = {
       },
       hero: {
         badge: 'EARLY ACCESS',
-        titlePre: 'One ecosystem for',
-        titleAccent: 'your music career',
+        titleCreate: 'Create.',
+        titleCollaborate: 'Collaborate.',
+        titleGetPaid: 'Get paid.',
+        titleAccent: 'GrowYourMusic.',
         subtitle:
           'GrowYourMusic brings artists, producers, beatmakers, audio engineers, visual creators, studios, and managers together on a single platform for collaboration and growth.',
         screenshotAlt: 'GrowYourMusic’s social feed',
@@ -92,8 +94,8 @@ export const TRANSLATIONS = {
             text: 'Organize your tracks by project: singles, albums, or EPs. Track each song’s progress and keep everything structured in one place.',
           },
           {
-            title: 'Charts for artists and producers',
-            text: 'Climb the charts through collaborations, sales, and activity on the platform. Separate charts for artists and producers show you exactly where you stand.',
+            title: 'Leaderboard for artists and producers',
+            text: 'Climb the leaderboard through collaborations, sales, and activity on the platform. Separate rankings for artists and producers show you exactly where you stand, and the top of the leaderboard gets rewarded with prizes.',
           },
           {
             title: 'Posting content to the feed',
@@ -277,8 +279,10 @@ export const TRANSLATIONS = {
       },
       hero: {
         badge: 'ACCES ANTICIPAT',
-        titlePre: 'Un singur ecosistem pentru',
-        titleAccent: 'cariera ta muzicală',
+        titleCreate: 'Creează.',
+        titleCollaborate: 'Colaborează.',
+        titleGetPaid: 'Fii plătit.',
+        titleAccent: 'GrowYourMusic.',
         subtitle:
           'GrowYourMusic aduce artiști, producători, beatmakeri, ingineri audio, creatori vizuali, studiouri și manageri într-o singură platformă de colaborare și creștere.',
         screenshotAlt: 'Feed-ul social GrowYourMusic',
@@ -319,7 +323,7 @@ export const TRANSLATIONS = {
           },
           {
             title: 'Clasamente pentru artiști și producători',
-            text: 'Urcă în topuri prin colaborări, vânzări și activitate în platformă. Clasamentele separate pentru artiști și producători îți arată exact unde te afli.',
+            text: 'Urcă în topuri prin colaborări, vânzări și activitate în platformă. Clasamentele separate pentru artiști și producători îți arată exact unde te afli, iar cei din vârful clasamentului primesc premii.',
           },
           {
             title: 'Postare de conținut pe feed',

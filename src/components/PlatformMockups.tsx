@@ -71,20 +71,32 @@ export function LibraryMockup() {
   )
 }
 
+const LEADERBOARD_RANK_STYLES = [styles.leaderboardRankGold, styles.leaderboardRankSilver, styles.leaderboardRankBronze]
+
 export function ChartsMockup() {
-  const podium = [
-    { rank: 2, name: 'GYM_user3', height: 64 },
-    { rank: 1, name: 'GYM_user1', height: 88 },
-    { rank: 3, name: 'GYM_user2', height: 48 },
+  const leaderboard = [
+    { rank: 1, name: 'GYM_user1', points: 1280 },
+    { rank: 2, name: 'GYM_user3', points: 1140 },
+    { rank: 3, name: 'GYM_user2', points: 980 },
+    { rank: 4, name: 'GYM_user5', points: 820 },
+    { rank: 5, name: 'GYM_user4', points: 760 },
   ]
   return (
-    <div className={styles.chartsMockup}>
-      {podium.map((p) => (
-        <div key={p.rank} className={styles.podiumColumn}>
-          <span className={styles.podiumName}>{p.name}</span>
-          <div className={styles.podiumBar} style={{ height: `${p.height}px` }}>
-            <span className={styles.podiumRank}>{p.rank}</span>
-          </div>
+    <div className={styles.leaderboardMockup}>
+      {leaderboard.map((u) => (
+        <div
+          key={u.rank}
+          className={`${styles.leaderboardRow} ${u.rank <= 3 ? styles.leaderboardRowTop : ''}`}
+        >
+          <span className={`${styles.leaderboardRank} ${LEADERBOARD_RANK_STYLES[u.rank - 1] ?? ''}`}>
+            {u.rank}
+          </span>
+          <span className={styles.leaderboardAvatar} />
+          <span className={styles.leaderboardName}>{u.name}</span>
+          <span className={styles.leaderboardPoints}>
+            {u.points}
+            <span className={styles.leaderboardPointsUnit}>pts</span>
+          </span>
         </div>
       ))}
     </div>

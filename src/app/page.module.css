@@ -229,7 +229,29 @@
   margin: 0 0 20px;
 }
 
+.titleCreate {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  color: #ffd218;
+}
+
+.titleCollaborate {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 500;
+  color: #ed9ed6;
+}
+
+.titleGetPaid {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 600;
+  font-size: 0.85em;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
 .heroAccent {
+  font-family: "Poppins", sans-serif;
   color: var(--purple-1);
   background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
   -webkit-background-clip: text;
@@ -437,6 +459,9 @@
 }
 
 .featureVisual :global(img) {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
   object-fit: cover;
   object-position: top;
 }

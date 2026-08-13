@@ -25,7 +25,7 @@ const FEATURE_VISUALS = [
   {
     visual: (
       <>
-        <Image src="/screenshots/studios.png" alt="GrowYourMusic studio map" fill />
+        <Image src="/screenshots/studios_final.png" alt="GrowYourMusic studio map" fill />
         <StudioBookingCard />
       </>
     ),
@@ -75,7 +75,9 @@ export default function Home() {
         <Reveal className={styles.heroIntro}>
           <span className={styles.badge}>{t.hero.badge}</span>
           <h1 className={styles.heroTitle}>
-            {t.hero.titlePre}{' '}
+            <span className={styles.titleCreate}>{t.hero.titleCreate}</span>{' '}
+            <span className={styles.titleCollaborate}>{t.hero.titleCollaborate}</span>{' '}
+            <span className={styles.titleGetPaid}>{t.hero.titleGetPaid}</span>{' '}
             <span className={styles.heroAccent}>{t.hero.titleAccent}</span>
           </h1>
           <p className={styles.heroSubtitle}>{t.hero.subtitle}</p>

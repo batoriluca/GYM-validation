@@ -1,0 +1,70 @@
+/* The bento grid, reused as ambient background texture behind the join
+   banner (see page.module.css .joinBannerStage) rather than as legible
+   foreground content: a tilted, low-opacity, depth-faded plane, as if the
+   visitor stands to its left looking across it toward the right — real
+   product texture standing in for a decorative blob, the same instinct
+   that put live components in the grid instead of screenshots to begin
+   with. Never receives pointer events; it is a backdrop, not a control. */
+
+/* Top and bottom fade to transparent here (not to a solid color) — the
+   page's own background (`--bg-black`, set on body in globals.css) is
+   already exactly what shows through once alpha reaches 0, so a plain
+   fade is the actual blend rather than an approximation of one. Combines
+   with .grid's own left-right fade below: masks on nested elements
+   multiply, so the two together taper all four edges. */
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.4;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+}
+
+.plane {
+  position: absolute;
+  inset: -22% -8% -22% -18%;
+  perspective: 2600px;
+  perspective-origin: 0% 50%;
+}
+
+.grid {
+  width: 122%;
+  height: 140%;
+  transform-origin: 0% 50%;
+  transform: rotateY(-40deg) rotateX(2deg);
+  columns: 6;
+  column-gap: 8px;
+  mask-image: linear-gradient(100deg, #000 0%, #000 55%, transparent 95%);
+  -webkit-mask-image: linear-gradient(100deg, #000 0%, #000 55%, transparent 95%);
+}
+
+.cell {
+  break-inside: avoid;
+  margin-bottom: 8px;
+}
+
+.cellFixed {
+  height: 280px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  background: var(--bg-panel);
+}
+
+@media (max-width: 980px) {
+  .grid {
+    columns: 4;
+  }
+}
+
+@media (max-width: 620px) {
+  .stage {
+    opacity: 0.3;
+  }
+
+  .grid {
+    columns: 3;
+  }
+}

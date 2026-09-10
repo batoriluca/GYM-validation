@@ -1,0 +1,286 @@
+/* Transport bar — the navbar as a wave scrubber: the whole bar is one
+   continuous waveform, and the round handle rides real scroll position
+   exactly like a track's own playhead. No section markers on the wave and
+   no separate nav menu anywhere — the sign-up pill is the one persistent
+   action. */
+
+.transport {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(11, 10, 20, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "session wave controls";
+  align-items: stretch;
+  height: 92px;
+  padding: 0 clamp(24px, 4vw, 48px);
+}
+
+/* Session — wordmark plus the armed status line */
+
+.session {
+  grid-area: session;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding-right: clamp(16px, 2.2vw, 28px);
+  border-right: 1px solid var(--card-border);
+  flex-shrink: 0;
+}
+
+.mark {
+  height: 30px;
+  width: auto;
+}
+
+.sessionMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.sessionName {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.armed {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* Wave — the continuous scrubber the whole bar is built from */
+
+.waveWrap {
+  grid-area: wave;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.4vw, 18px);
+  padding: 0 clamp(18px, 2.6vw, 34px);
+}
+
+/* The wave's own height now matches .mark's (30px) exactly, rather than
+   running shorter — both are centered in the same stretched grid row, so
+   matching their heights (not just their centers) is what actually reads
+   as "in line" rather than as a thinner element floating in a taller
+   one's shadow. */
+.waveTrack {
+  position: relative;
+  width: 100%;
+  height: 30px;
+}
+
+.waveSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.waveBarDim {
+  fill: var(--text-tertiary);
+  opacity: 0.32;
+}
+
+/* Desktop-only scroll-activity status icon at the wave's left edge — see
+   .playState in @media (max-width: 980px) below for the mobile hide. */
+.playState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--text-tertiary);
+}
+
+.playState svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* .waveBrightGroup carries no transition — the bright reveal is driven by
+   real scroll progress every frame, so it must move exactly simultaneously
+   with the scroll, not ease toward it a beat later. */
+
+/* Static — the same five stops the spinning card/CTA border cycles through
+   (see #waveFillGradient in Transport.tsx), laid out left to right with no
+   --border-angle animation. */
+.waveBarBright {
+  fill: url(#waveFillGradient);
+}
+
+.scrubHandle {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16), 0 0 12px 1px rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Controls — elapsed readout, language snap, sign up */
+
+.controls {
+  grid-area: controls;
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 18px);
+  padding-left: clamp(16px, 2.2vw, 28px);
+  border-left: 1px solid var(--card-border);
+  flex-shrink: 0;
+}
+
+.readout {
+  display: inline-flex;
+  align-items: baseline;
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.record {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border: 1.5px solid var(--purple-1);
+  border-radius: var(--radius-pill);
+  background: var(--bg-black);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px -8px rgba(102, 87, 218, 0.55);
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.24s var(--ease-out), transform 0.24s var(--ease-out);
+}
+
+.record:hover {
+  background: var(--purple-1);
+  border-color: var(--purple-2);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px -10px rgba(102, 87, 218, 0.7);
+}
+
+.record:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 1180px) {
+  .readout {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  /* The wave stays in the same row as the logo, language switcher, and
+     sign-up button at every width now — no more dropping to its own row
+     below. With the wordmark/badge text and the old lanes hamburger both
+     gone, session and controls are light enough that the wave still gets
+     real room in between. */
+  .bar {
+    height: 80px;
+    padding: 0 clamp(16px, 4vw, 40px);
+  }
+
+  .session {
+    border-right: none;
+    padding-right: clamp(10px, 2vw, 16px);
+    flex-shrink: 0;
+  }
+
+  /* The wordmark and "EARLY ACCESS" badge drop out below 980px — the mark
+     alone carries the identity at that width, and the image's own alt
+     text ("GrowYourMusic") keeps it in the accessible name regardless. */
+  .sessionMeta {
+    display: none;
+  }
+
+  .waveWrap {
+    padding: 0 clamp(10px, 2vw, 16px);
+  }
+
+  /* Desktop-only per the current request — mobile keeps the wave itself as
+     the only status/progress indicator. */
+  .playState {
+    display: none;
+  }
+
+  .waveTrack {
+    height: 24px;
+  }
+
+  .controls {
+    border-left: none;
+    padding-left: 0;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 620px) {
+  .record {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .mark {
+    height: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bar {
+    height: 72px;
+    padding: 0 14px;
+  }
+
+  .waveWrap {
+    padding: 0 6px;
+  }
+
+  .controls {
+    gap: 5px;
+  }
+
+  .record {
+    padding: 8px 10px;
+    font-size: 12.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .record {
+    transition: none;
+  }
+}

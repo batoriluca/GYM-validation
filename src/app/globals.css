@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=JetBrains+Mono:wght@600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ground */
+  --bg-black: #0b0a14;
+  --bg-black-soft: #120f22;
+  --bg-panel: #16132a;
+
+  /* card = soft glass panel */
+  --card-fill-top: rgba(46, 41, 84, 0.4);
+  --card-fill-bottom: rgba(19, 17, 36, 0.4);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-border-strong: rgba(255, 255, 255, 0.18);
+
+  --purple-1: #6657da;
+  --purple-2: #7743db;
+  --gold: #ffd218;
+  --gold-soft: #efd28e;
+  --pink: #ed9ed6;
+
+  --text-primary: #ffffff;
+  --text-secondary: #b4aed1;
+  --text-tertiary: #7d759e;
+
+  --success: #7fe0a8;
+  --danger: #ff8f8f;
+
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 20px 60px -20px rgba(20, 10, 60, 0.55);
+  --shadow-lift: 0 30px 80px -24px rgba(102, 87, 218, 0.35);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  /* clears the sticky transport bar when an anchor is jumped to */
+  scroll-padding-top: 86px;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background: var(--bg-black);
+  color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
+}
+
+/* No overflow rule on body: html is the real scrolling element
+   (document.scrollingElement), already clipped horizontally above. Any
+   non-'visible' overflow on body — even one that never actually clips
+   anything, since body's box already fits its content exactly — makes
+   body itself the reference scroll container for every position: sticky
+   descendant instead of the viewport, so the sticky navbar would compute
+   its offset against a scroll position (body's) that never changes and
+   never engage its stuck state at all. */
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: "Poppins", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+::selection {
+  background: var(--purple-1);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--gold);
+  outline-offset: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-border-strong);
+  border-radius: 999px;
+  border: 2px solid var(--bg-black);
+}

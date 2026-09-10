@@ -1,0 +1,140 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 12px;
+}
+
+.progressWrap {
+  flex: 1;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progressLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.progressTrack {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--purple-1), var(--purple-2));
+  transition: transform 0.3s var(--ease-out);
+}
+
+.skipButton {
+  border: 1px solid var(--card-border-strong);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-radius: var(--radius-pill);
+  padding: 9px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.skipButton:hover {
+  border-color: var(--purple-1);
+  color: var(--text-primary);
+}
+
+.skipButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.question {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.optionsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--card-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 13px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.optionRow:hover {
+  border-color: var(--purple-1);
+  color: var(--text-primary);
+}
+
+.optionRowSelected {
+  border-color: var(--purple-1);
+  background: rgba(102, 87, 218, 0.14);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.optionInput {
+  accent-color: var(--purple-1);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.backButton {
+  border: 1px solid var(--card-border-strong);
+  background: transparent;
+  color: var(--text-primary);
+  border-radius: var(--radius-pill);
+  padding: 15px 18px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  border-color: var(--purple-1);
+}
+
+.backButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.spacer {
+  flex: 1;
+}

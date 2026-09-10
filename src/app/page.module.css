@@ -1,0 +1,873 @@
+.page {
+  position: relative;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blobBanner {
+  width: 640px;
+  height: 640px;
+  top: 50%;
+  right: -260px;
+  transform: translateY(-50%);
+  background: radial-gradient(circle, rgba(237, 158, 214, 0.18), transparent 70%);
+}
+
+/* Footer wordmark */
+
+.logoImg {
+  border-radius: 8px;
+}
+
+.logoText {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Join banner stage — the bento grid (BentoBackdrop) sits absolutely
+   behind the join banner, not nested inside it: the banner keeps its own
+   opaque background and simply covers the backdrop wherever the two
+   overlap, the same way a card sits in front of a page's own texture.
+   Revealed in two beats off one shared trigger (see the IntersectionObserver
+   in page.tsx) — the backdrop fades/settles in first, the banner follows
+   after a delay, so the page reads "the platform, then the invite" rather
+   than both arriving at once. Margin-top pushes the whole stage down a
+   little, clear of the hero's own inspector content above it — the
+   backdrop's top bleed now has real breathing room before it reaches
+   anything the hero still needs to read on its own. */
+.joinBannerStage {
+  position: relative;
+  isolation: isolate;
+  margin-top: clamp(180px, 22vw, 320px);
+  margin-bottom: clamp(180px, 22vw, 320px);
+}
+
+.joinBannerBackdrop {
+  position: absolute;
+  top: clamp(-260px, -20vw, -160px);
+  bottom: clamp(-340px, -26vw, -220px);
+  left: 0;
+  right: 0;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+
+.joinBannerStage[data-revealed='true'] .joinBannerBackdrop {
+  opacity: 0.4;
+  transform: scale(1);
+}
+
+.joinBannerStage .joinBanner {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s 0.45s var(--ease-out), transform 0.8s 0.45s var(--ease-out);
+}
+
+.joinBannerStage[data-revealed='true'] .joinBanner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .joinBannerBackdrop,
+  .joinBannerStage .joinBanner {
+    transition: none;
+  }
+}
+
+/* Join banner — signup, no nested card */
+
+/* The exact same border-gradient trick .showcaseVisual (the first feature
+   card) uses — 2px width, full-opacity stops, same conic-gradient, same
+   spinBorder keyframe — applied to this section's own box (not a separate
+   thin strip: an earlier attempt painted the gradient directly onto two
+   1px-tall, full-width pseudo-elements, but a conic-gradient's visible arc
+   depends on the box it's computed against, and a sliver 1400px wide by
+   1px tall only ever exposes a thin sliver of the color wheel — nothing
+   like the full sweep a near-square card shows across all four sides at
+   once). Zeroing out the left/right border width is what confines the same
+   computed ring to just the top and bottom edges, rather than computing a
+   different, distorted gradient shape from scratch. */
+.joinBanner {
+  position: relative;
+  z-index: 1;
+  padding: 90px 6%;
+  border: 2px solid transparent;
+  border-width: 2px 0;
+  background:
+    radial-gradient(circle at 12% 15%, rgba(255, 210, 24, 0.1), transparent 55%) padding-box,
+    linear-gradient(var(--bg-black-soft), var(--bg-black-soft)) padding-box,
+    conic-gradient(from var(--border-angle), var(--purple-1), var(--pink), var(--gold), var(--purple-2), var(--purple-1)) border-box;
+  overflow: hidden;
+  scroll-margin-top: 80px;
+  animation: spinBorder 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .joinBanner {
+    animation: none;
+  }
+}
+
+.joinBannerInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 72px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.joinBannerText {
+  flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.founderIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  color: #241c02;
+  margin-bottom: 20px;
+  box-shadow: 0 12px 26px -10px rgba(255, 210, 24, 0.55);
+}
+
+.founderIcon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.founderBadge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--gold);
+  background: rgba(255, 210, 24, 0.12);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+
+.founderTitle {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 0 0 14px;
+}
+
+.founderText {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.preregisterAccent {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Static (no spin) — and deliberately NOT the border+background-layer
+   trick .joinBanner uses: that trick needs an opaque padding-box "fill"
+   layer to mask the interior, and here that fill can only ever be a flat
+   guess at .joinBanner's actual background (which is itself a radial
+   highlight over a solid base, not one flat color) — sampled pixels
+   confirmed a visible seam where the guessed fill didn't match. A plain
+   absolutely-positioned strip needs no fill at all: nothing here touches
+   .joinBannerForm's own background, so it stays exactly what it already
+   was (transparent, showing .joinBanner's real background beneath it). */
+.joinBannerForm {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding-left: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.joinBannerForm::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  /* Second half of the card's own 5-stop sequence only — gold at the
+     top, running down through the remaining stops to purple at the bottom. */
+  background: linear-gradient(to bottom, var(--gold), var(--purple-2), var(--purple-1));
+}
+
+/* Section shared — editorial left-aligned running head */
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 108px 6%;
+  scroll-margin-top: 80px;
+}
+
+.sectionHeader {
+  text-align: left;
+  max-width: 640px;
+  margin: 0 auto 60px;
+}
+
+.sectionTitle {
+  font-size: clamp(28px, 3.6vw, 42px);
+  margin: 0 0 16px;
+}
+
+.sectionSubtitle {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Feature showcase — alternating rows (unchanged) */
+
+.showcaseList {
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+  max-width: 1120px;
+  margin: 0 auto 110px;
+}
+
+.showcaseRow {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+}
+
+.showcaseRowReverse {
+  flex-direction: row-reverse;
+}
+
+.showcaseVisual {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 360px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--bg-black-soft), var(--bg-black-soft)) padding-box,
+    conic-gradient(from var(--border-angle), var(--purple-1), var(--pink), var(--gold), var(--purple-2), var(--purple-1)) border-box;
+  animation: spinBorder 5s linear infinite;
+}
+
+.showcaseRow:nth-child(2) .showcaseVisual {
+  animation-delay: -1.7s;
+}
+
+.showcaseRow:nth-child(3) .showcaseVisual {
+  animation-delay: -3.4s;
+}
+
+.showcaseRow:nth-child(4) .showcaseVisual {
+  animation-delay: -0.9s;
+}
+
+.showcaseVisual :global(img) {
+  object-fit: cover;
+}
+
+@keyframes spinBorder {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcaseVisual {
+    animation: none;
+  }
+}
+
+.showcaseBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.featureIconBadge {
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  color: #ffffff;
+  margin-bottom: 22px;
+  flex-shrink: 0;
+}
+
+.featureIconBadge svg {
+  width: 23px;
+  height: 23px;
+}
+
+.showcaseTitle {
+  font-size: 27px;
+  margin: 0 0 14px;
+}
+
+.showcaseText {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 46ch;
+}
+
+/* Benefit grid — the remaining features, lighter treatment (unchanged) */
+
+.benefitGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.benefitCard {
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(180deg, var(--card-fill-top) 0%, var(--card-fill-bottom) 100%) padding-box,
+    linear-gradient(var(--bg-black-soft), var(--bg-black-soft)) padding-box,
+    conic-gradient(from var(--border-angle), rgba(102, 87, 218, 0.27), rgba(237, 158, 214, 0.32), var(--gold), rgba(119, 67, 219, 0.49), var(--purple-1)) border-box;
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  transition: transform 0.3s var(--ease-out);
+  animation: spinBorder 5s linear infinite;
+}
+
+.benefitCard:nth-child(2) {
+  animation-delay: -0.8s;
+}
+
+.benefitCard:nth-child(3) {
+  animation-delay: -1.6s;
+}
+
+.benefitCard:nth-child(4) {
+  animation-delay: -2.4s;
+}
+
+.benefitCard:nth-child(5) {
+  animation-delay: -3.2s;
+}
+
+.benefitCard:nth-child(6) {
+  animation-delay: -4s;
+}
+
+.benefitCard:hover {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .benefitCard {
+    animation: none;
+  }
+}
+
+.benefitCard .featureIconBadge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.benefitCard .featureIconBadge svg {
+  width: 19px;
+  height: 19px;
+}
+
+.benefitTitle {
+  font-size: 17px;
+  margin: 0 0 10px;
+}
+
+.benefitText {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 22px;
+}
+
+.benefitVisual {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: auto;
+}
+
+/* Audience section — one full-width run of ticking marquee rows, with the
+   header box floating centered on top of them (absolute, out of flow)
+   rather than splitting the run around it. A blurred scrim behind the
+   title keeps it legible over the moving tags underneath, with the same
+   spinning conic-gradient border used on the six benefit cards above
+   (.benefitCard, @property --border-angle + spinBorder keyframe) so the
+   two sections share a signature border treatment. */
+
+.audienceLayout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.audienceHeaderBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: min(600px, 88%);
+  padding: 34px 32px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse at center, rgba(11, 10, 20, 0.92) 0%, rgba(11, 10, 20, 0.75) 65%, rgba(11, 10, 20, 0.4) 100%) padding-box,
+    linear-gradient(var(--bg-black-soft), var(--bg-black-soft)) padding-box,
+    conic-gradient(from var(--border-angle), rgba(102, 87, 218, 0.27), rgba(237, 158, 214, 0.32), var(--gold), rgba(119, 67, 219, 0.49), var(--purple-1)) border-box;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: spinBorder 5s linear infinite;
+}
+
+.audienceHeaderBox .sectionHeader {
+  text-align: center;
+  max-width: none;
+  margin: 0 auto;
+}
+
+/* Smaller than the shared .sectionTitle/.sectionSubtitle sizing used by the
+   other sections — this box is a floating overlay, not a full section head,
+   so it reads better lighter. */
+.audienceHeaderBox .sectionTitle {
+  font-size: clamp(22px, 3vw, 34px);
+}
+
+.audienceHeaderBox .sectionSubtitle {
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audienceHeaderBox {
+    animation: none;
+  }
+}
+
+.audienceSphere {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  animation: marqueeScroll 26s linear infinite;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .marqueeTrack > *:nth-child(n+8) {
+    display: none;
+  }
+}
+
+.marqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 18px 8px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.marqueeIcon {
+  width: 26px;
+  height: 26px;
+  padding: 6px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  flex-shrink: 0;
+}
+
+.marqueeItem:nth-child(3n+2) .marqueeIcon {
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  color: #241c02;
+}
+
+.marqueeItem:nth-child(3n+3) .marqueeIcon {
+  background: linear-gradient(135deg, var(--pink), var(--purple-1));
+}
+
+/* Final CTA — full-bleed gradient band */
+
+.ctaBand {
+  position: relative;
+  z-index: 1;
+  padding: 104px 6%;
+  text-align: center;
+  overflow: hidden;
+  background: var(--bg-black);
+}
+
+/* The wave line-art (el1.png), shown in its own natural gradient colors —
+   the band is now the page's own dark ground, so the art's purple/pink/
+   blue strokes read directly against it instead of needing to be masked
+   down to a flat silhouette. Sized past 100% and centered rather than
+   fit-to-width — .ctaBand's own overflow: hidden crops whatever spills
+   past the edge, a deliberate trade (bigger, bolder brushstroke over
+   fully seeing both ends of it). */
+.ctaBandEl1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: 210%;
+  max-width: none; /* overrides the global img{max-width:100%} reset, which was silently capping this at 100% */
+  height: auto;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ctaBandInner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: clamp(28px, 3.6vw, 40px);
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.ctaSubtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+  margin: 0 0 34px;
+}
+
+/* Same spinning conic-gradient border as the hero's own CTA
+   (Arrangement.module.css .cta) — dark fill, animated rainbow border,
+   @property --border-angle + spinBorder keyframe shared globally. */
+.ctaButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 15px 22px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(var(--bg-black), var(--bg-black)) padding-box,
+    conic-gradient(from var(--border-angle), var(--purple-1), var(--pink), var(--gold), var(--purple-2), var(--purple-1)) border-box;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  overflow: hidden;
+  box-shadow: 0 14px 32px -16px rgba(102, 87, 218, 0.55);
+  animation: spinBorder 5s linear infinite;
+  transition: transform 0.24s var(--ease-out), box-shadow 0.24s var(--ease-out);
+}
+
+.ctaButtonIcon {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px -18px rgba(102, 87, 218, 0.75);
+}
+
+.ctaButton:active {
+  transform: translateY(0);
+}
+
+.ctaButton:hover .ctaButtonIcon {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaButton {
+    animation: none;
+    transition: none;
+    --border-angle: 45deg;
+  }
+}
+
+/* Footer — multi-column */
+
+.footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--card-border);
+  padding: 64px 6% 32px;
+  scroll-margin-top: 80px;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1120px;
+  margin: 0 auto 40px;
+}
+
+.footerBrand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.footerLogoRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footerBlurb {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 38ch;
+  margin: 0;
+}
+
+.footerSocial {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footerSocial a {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.footerSocial a:hover {
+  color: var(--text-primary);
+  border-color: var(--card-border-strong);
+}
+
+.footerSocial svg {
+  width: 16px;
+  height: 16px;
+}
+
+.footerNavCol,
+.footerContactCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding-top: 6px;
+}
+
+.footerNavCol a,
+.footerContactCol a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footerNavCol a:hover,
+.footerContactCol a:hover {
+  color: var(--text-primary);
+}
+
+.footerLinkIcon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.footerBottom {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--card-border);
+}
+
+.footerText {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+@media (max-width: 980px) {
+  .joinBannerInner {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .joinBannerText {
+    flex: none;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .joinBannerForm {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 40px;
+    border-top: 1px solid var(--card-border);
+  }
+
+  .joinBannerForm::before {
+    display: none;
+  }
+
+  .showcaseRow,
+  .showcaseRowReverse {
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .showcaseRow > *,
+  .showcaseRowReverse > * {
+    width: 100%;
+  }
+
+  /* .showcaseVisual's `flex: 1` sets flex-basis: 0% on the *main* axis —
+     which is now vertical, since the row just switched to a column. That
+     silently overrides the 360px height instead of just sharing it out, so
+     every showcase image (studio map included) collapses to 0px tall on
+     mobile without this override. */
+  .showcaseVisual {
+    flex: none;
+    height: 280px;
+  }
+
+  .benefitGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footerBrand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 860px) {
+  .benefitGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 560px) {
+  .section {
+    padding: 64px 5%;
+  }
+
+  .showcaseList {
+    gap: 64px;
+    margin-bottom: 64px;
+  }
+
+  .joinBanner {
+    padding: 56px 5%;
+  }
+
+  .ctaBand {
+    padding: 72px 5%;
+  }
+
+  .footer {
+    padding: 48px 5% 24px;
+  }
+
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

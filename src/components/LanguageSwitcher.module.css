@@ -1,0 +1,43 @@
+.switcher {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.langButton {
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.langButton:not(:last-child)::after {
+  content: '/';
+  margin: 0 8px;
+  color: var(--card-border-strong);
+}
+
+.langButton:hover {
+  color: var(--text-primary);
+}
+
+.active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .langButton {
+    padding: 2px;
+    font-size: 12px;
+  }
+
+  .langButton:not(:last-child)::after {
+    margin: 0 5px;
+  }
+}

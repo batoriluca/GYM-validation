@@ -1,0 +1,862 @@
+/* Shared app-window frame used by every mockup */
+
+.frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+}
+
+.frameBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--card-border);
+  flex-shrink: 0;
+}
+
+.frameDots {
+  display: flex;
+  gap: 5px;
+}
+
+.frameDots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  font-style: normal;
+}
+
+.frameTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.frameBody {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at 15% 0%, rgba(102, 87, 218, 0.14), transparent 55%);
+}
+
+.frameBodyGold {
+  background: radial-gradient(circle at 15% 0%, rgba(255, 210, 24, 0.1), transparent 55%);
+}
+
+/* Studio map — the real screenshot bleeding to the frame's edges (unlike
+   every other mockup body, which keeps frameBody's 16px padding), with the
+   booking card overlaid on top of it. */
+
+.studioMapBody {
+  position: relative;
+  flex: 1;
+  margin: -16px;
+  overflow: hidden;
+}
+
+.studioMapBody :global(img) {
+  object-fit: cover;
+}
+
+/* Studio booking card overlay (sits on top of the real studio map screenshot) */
+
+.bookingCard {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  background: linear-gradient(180deg, var(--card-fill-top) 0%, var(--card-fill-bottom) 100%);
+  border: 1px solid var(--card-border-strong);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-soft);
+}
+
+.bookingTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.bookingName {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bookingRating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.bookingRating svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--gold);
+}
+
+.bookingMeta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 2px 0 10px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.bookingMeta svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.bookingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bookingPrice {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.bookingButton {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+/* Management / calendar mockup */
+
+.calendarMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendarHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendarDayLabel {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendarCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 24px;
+  border-radius: 7px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.calendarCellActive {
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.calendarDot {
+  flex-shrink: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.calendarCellActive .calendarDot {
+  background: #ffffff;
+}
+
+.calendarEvent {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  padding: 9px 12px;
+}
+
+.calendarEventIcon {
+  flex-shrink: 0;
+  display: flex;
+  color: var(--gold);
+}
+
+.calendarEventIcon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.calendarEventTime {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* Library / storage mockup */
+
+.libraryMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.trackTile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+}
+
+.trackArt {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.trackArt svg {
+  width: 15px;
+  height: 15px;
+}
+
+.trackInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.trackName {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trackProgressTrack {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.trackProgressFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+}
+
+/* Charts / leaderboard mockup */
+
+.leaderboardMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.leaderboardRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.leaderboardRowTop {
+  background: linear-gradient(135deg, rgba(255, 210, 24, 0.12), rgba(255, 210, 24, 0.04));
+}
+
+.leaderboardRank {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.leaderboardRank svg {
+  width: 12px;
+  height: 12px;
+}
+
+.leaderboardRankGold {
+  background: linear-gradient(135deg, #ffe999, #ffd218);
+  color: #3c2f00;
+}
+
+.leaderboardRankSilver {
+  background: linear-gradient(135deg, #e4e4e4, #b6b6b6);
+  color: #2c2c2c;
+}
+
+.leaderboardRankBronze {
+  background: linear-gradient(135deg, #e0a877, #b6703b);
+  color: #2c1a0c;
+}
+
+.leaderboardAvatar {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.leaderboardName {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboardPoints {
+  flex-shrink: 0;
+  color: var(--gold);
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.leaderboardPointsUnit {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Post creation mockup */
+
+.postMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.postMockupTitle {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.postOptions {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.postOption {
+  flex: 1;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+}
+
+.postOptionIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.postOptionIcon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.postMockupButton {
+  align-self: flex-end;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+/* Wallet mockup */
+
+.walletMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.walletTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.walletIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #241c02;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  flex-shrink: 0;
+}
+
+.walletIcon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.walletLabel {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.walletAmount {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.walletActions {
+  display: flex;
+  gap: 8px;
+}
+
+.walletButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.walletButton svg {
+  width: 12px;
+  height: 12px;
+}
+
+.walletButtonGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--card-border-strong);
+  color: var(--text-secondary);
+}
+
+.walletButtonGhost svg {
+  width: 12px;
+  height: 12px;
+}
+
+.walletHistory {
+  border-top: 1px solid var(--card-border);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.walletHistoryRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.walletHistoryIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.walletHistoryIcon svg {
+  width: 10px;
+  height: 10px;
+}
+
+.walletHistoryLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.walletPositive {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.walletNegative {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Contract mockup */
+
+.contractMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+}
+
+.contractRowWrap {
+  padding-bottom: 10px;
+}
+
+.contractRowWrap + .contractRowWrap {
+  border-top: 1px solid var(--card-border);
+  padding-top: 10px;
+}
+
+.contractRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contractIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple-1);
+  background: rgba(102, 87, 218, 0.14);
+}
+
+.contractIcon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.contractInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.contractTitle {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.contractMeta {
+  margin: 2px 0 0;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.contractFee {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding-left: 38px;
+}
+
+.contractFee strong {
+  color: var(--text-primary);
+}
+
+.contractStatusSigned {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(127, 224, 168, 0.14);
+  color: var(--success);
+}
+
+.contractStatusPending {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 210, 24, 0.14);
+  color: var(--gold);
+}
+
+/* Lyrics editor mockup */
+
+.lyricsMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lyricsLines {
+  flex: 1;
+}
+
+.lyricsLine {
+  margin: 0 0 4px;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--text-secondary);
+}
+
+.lyricsSpacer {
+  margin: 0 0 2px;
+  height: 3px;
+}
+
+.aiSuggestion {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+  line-height: 1.4;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(102, 87, 218, 0.35);
+  background: rgba(102, 87, 218, 0.12);
+  padding: 8px 10px;
+}
+
+.aiTag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+}
+
+.aiTag svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* Marketplace mockup */
+
+.marketplaceMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.productTile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-border);
+}
+
+.productThumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.productThumb svg {
+  width: 15px;
+  height: 15px;
+}
+
+.productInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.productName {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.productPrice {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Messaging mockup */
+
+.messagingMockup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.messagingHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 10px;
+}
+
+.messagingAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-1), var(--gold-soft));
+}
+
+.messagingContact {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.messagingOnline {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+
+.messagingThread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bubble {
+  max-width: 82%;
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.bubbleIncoming {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+  border-bottom-left-radius: 5px;
+}
+
+.bubbleOutgoing {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  color: #ffffff;
+  border-bottom-right-radius: 5px;
+}

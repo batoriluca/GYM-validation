@@ -1,0 +1,179 @@
+/* Hero — no more arrangement/lane/clip console. Just the circle and the
+   headline, centered. */
+.arrangement {
+  position: relative;
+  min-height: clamp(560px, 78vh, 820px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(44px, 6vw, 76px) clamp(16px, 3vw, 34px);
+  overflow: hidden;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  text-align: center;
+}
+
+/* The looping line-art mark behind the headline, sitting a layer further
+   back (negative z-index within .heroContent's own stacking context) so
+   the text always reads on top of it, never the reverse. mix-blend-mode:
+   screen lets its black canvas disappear into the dark section instead of
+   showing as a hard square, leaving only the colored strokes visible. */
+.heroCirc {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: clamp(400px, 68vw, 980px);
+  max-width: none; /* overrides the global img{max-width:100%} reset, which was silently capping this at .heroContent's width */
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Four words, four voices — the exact device validation-gym's own hero
+   title uses (page.module.css .titleCreate/.titleCollaborate/
+   .titleGetPaid/.heroAccent): each word in its own typeface and its own
+   track color, rather than one uniform display face. */
+.heroTitle {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Create./Collaborate./Get paid. stay on one row together — never wrapping
+   mid-group — while GrowYourMusic. (see .heroAccent) is forced onto its
+   own row below, rather than however the natural inline wrap happened to
+   break across the four. The row's own font-size shrinks independently of
+   .heroTitle's base size (a second, tighter clamp) so "Create. Collaborate.
+   Get paid." keeps fitting one line down to narrow phones instead of
+   overflowing off the edge. */
+.titleRow {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  font-size: clamp(18px, 5.2vw, 0.85em);
+}
+
+.titleCreate {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.titleCollaborate {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--pink);
+}
+
+.titleGetPaid {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.85em;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.heroAccent {
+  display: block;
+  margin-top: 0.15em;
+  font-family: 'Poppins', sans-serif;
+  color: var(--purple-1);
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  margin: clamp(18px, 2vw, 26px) auto 0;
+  max-width: 46ch;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* The record-style dot is gone — this button now carries the same spinning
+   conic-gradient border the closing six feature cards use (page.module.css
+   --border-angle/spinBorder), plus a low-opacity pixel mosaic of the same
+   three colors sitting behind the label. */
+.cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: clamp(28px, 3vw, 40px) auto 0;
+  padding: 15px 22px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(var(--bg-black), var(--bg-black)) padding-box,
+    conic-gradient(from var(--border-angle), var(--purple-1), var(--pink), var(--gold), var(--purple-2), var(--purple-1)) border-box;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 0 14px 32px -16px rgba(102, 87, 218, 0.55);
+  animation: spinBorder 5s linear infinite;
+  transition: transform 0.24s var(--ease-out), box-shadow 0.24s var(--ease-out);
+}
+
+.ctaLabel {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes spinBorder {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px -18px rgba(102, 87, 218, 0.75);
+}
+
+.cta:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+
+@media (max-width: 820px) {
+  .arrangement {
+    min-height: clamp(480px, 86vh, 720px);
+  }
+}
+
+/* Circle is sized down on desktop only — .heroCirc's own clamp() above
+   keeps the mobile (<=820px) size exactly as it was. Same 68vw slope as
+   the mobile rule (so there's no jump right at the 820/821px handoff),
+   just a much lower cap, so it stops growing well short of the old
+   980px ceiling. */
+@media (min-width: 821px) {
+  .heroCirc {
+    width: clamp(400px, 68vw, 520px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta {
+    animation: none;
+    transition: none;
+    --border-angle: 45deg;
+  }
+}

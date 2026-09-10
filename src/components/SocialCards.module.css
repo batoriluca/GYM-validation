@@ -1,0 +1,821 @@
+/* Styling lifted from the "Social media" decks' own <style> blocks —
+   colors, radii and structure match the source 1080×1080 slides; only the
+   absolute px scale is reduced. Every card sizes to its own natural
+   content height (no height: 100%, no flex: 1 stretch-to-fill, no
+   overflow crop) rather than being forced into a fixed grid cell. */
+
+.pcard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--card-fill-top) 0%, var(--card-fill-bottom) 100%);
+  border: 1px solid var(--card-border-strong);
+}
+
+.pcardInner {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border-strong);
+  border-radius: 8px;
+  padding: 3px 9px;
+}
+
+.sectionTitle {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+/* wallet/02-wallet.html */
+
+.walletRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.balanceLabel {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.balanceValue {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lockedBox {
+  margin-top: 12px;
+}
+
+.lockedLabel {
+  margin: 0 0 3px;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.lockedValue {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.walletActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.walletBtn {
+  border: 1px solid var(--card-border-strong);
+  border-radius: 10px;
+  padding: 8px 16px;
+  text-align: center;
+  color: var(--purple-1);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* leaderboard/04-podium.html */
+
+.lbList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lbRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+}
+
+.lbTop {
+  background: linear-gradient(180deg, var(--card-fill-top) 0%, var(--card-fill-bottom) 100%);
+  border-color: rgba(255, 210, 24, 0.4);
+}
+
+.lbLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.lbRank {
+  width: 20px;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.lbTop .lbRank {
+  color: var(--gold);
+}
+
+.lbAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.lbName {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lbPts {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.lbTop .lbPts {
+  color: var(--gold);
+}
+
+/* Reviews — original card, no matching deck slide (see SocialCards.tsx) */
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reviewRow {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border-strong);
+}
+
+.reviewAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.reviewBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.reviewTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.reviewName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.reviewStars {
+  flex-shrink: 0;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--gold);
+}
+
+.reviewText {
+  margin: 4px 0 0;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* vault/05-lyrics.html */
+
+.lyricsCard {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--card-border);
+}
+
+.lyricsLine {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #e6e6e6;
+}
+
+.lyricsHeading {
+  margin: 6px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #e6e6e6;
+}
+
+.muted {
+  color: var(--text-tertiary);
+}
+
+.editBadge {
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border-strong);
+  color: var(--purple-1);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* marketplace/02-shop.html */
+
+.shopWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--card-fill-top) 0%, var(--card-fill-bottom) 100%);
+  border: 1px solid var(--card-border-strong);
+}
+
+.shopTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--purple-1);
+}
+
+.shopSub {
+  margin: 3px 0 0;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.chip {
+  padding: 5px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border-strong);
+  background: rgba(64, 63, 63, 0.45);
+  color: #c3c3c3;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.chipActive {
+  border-color: var(--purple-1);
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(102, 87, 218, 0.33), rgba(64, 63, 63, 0.5));
+}
+
+.prodCard {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--card-border-strong);
+}
+
+.prodCover {
+  width: 34%;
+  min-width: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 9px;
+}
+
+.coverBeat {
+  box-shadow: inset 0 0 0 999px rgba(102, 87, 218, 0.45);
+}
+
+.coverMix {
+  box-shadow: inset 0 0 0 999px rgba(63, 59, 143, 0.55);
+}
+
+.prodCoverLabel {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.prodDetails {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px;
+}
+
+.prodTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.prodTitle {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #d8d8d8;
+}
+
+.priceTag {
+  flex-shrink: 0;
+  padding: 4px 9px;
+  border-radius: 10px;
+  background: rgba(255, 210, 24, 0.1);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.prodBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.prodProfile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.avatarCircle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.prodUsername {
+  font-size: 9px;
+  color: #ababab;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viewBtn {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: var(--purple-1);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* marketplace/03-sell.html */
+
+.formCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--card-border-strong);
+}
+
+.fieldLabel {
+  margin: 0 0 5px;
+  font-size: 9px;
+  color: var(--text-secondary);
+}
+
+.fieldValue {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fieldValuePlaceholder {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+.catRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.catPill {
+  padding: 4px 9px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border-strong);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 9px;
+}
+
+.catPillActive {
+  border-color: transparent;
+  color: #ffffff;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.submitBtn {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* marketplace/05-feature.html */
+
+.featureCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--card-border-strong);
+}
+
+.featureProfile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.featureAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.featureName {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.featureRole {
+  margin: 1px 0 0;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.featurePriceTag {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: rgba(255, 210, 24, 0.1);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* vault/06-vocals.html */
+
+.vocalFilterRow {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.vocalChip {
+  padding: 5px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border-strong);
+  color: var(--text-secondary);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.vocalChipActive {
+  border-color: transparent;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.vocalRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border-strong);
+  margin-bottom: 7px;
+}
+
+.vocalBadge {
+  flex-shrink: 0;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.vocalBadgeRaw {
+  background: rgba(239, 210, 142, 0.15);
+  color: var(--gold-soft);
+}
+
+.vocalBadgeMix {
+  background: rgba(102, 87, 218, 0.2);
+  color: #b7aefc;
+}
+
+.vocalName {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  color: #d6d1ff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vocalDownload {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* vault/07-beat.html */
+
+.beatCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.beatArt {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border-strong);
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.playerBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.playBtn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.trackLine {
+  flex: 1;
+  position: relative;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.trackLine::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 38%;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+}
+
+.beatMeta {
+  flex-shrink: 0;
+  font-size: 9px;
+  color: var(--text-secondary);
+}
+
+.uploadChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border-strong);
+  color: var(--purple-1);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* vault/08-collab.html */
+
+.collabList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.collabRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border-strong);
+}
+
+.collabAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--purple-2), var(--purple-1));
+}
+
+.collabName {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.collabStatus {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.statusAccepted {
+  background: rgba(127, 224, 168, 0.15);
+  color: var(--success);
+}
+
+.statusPending {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+}
+
+.inviteBtn {
+  margin-top: 4px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* leaderboard/02-artist.html */
+
+.outWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.outStart {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.outArrowV {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+
+.outBranches {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.outBranch {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border-strong);
+}
+
+.outBranchLabel {
+  margin: 0 0 4px;
+  font-size: 9px;
+  color: var(--text-secondary);
+}
+
+.outBranchText {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.outBranchPts {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+}

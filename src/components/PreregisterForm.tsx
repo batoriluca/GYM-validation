@@ -6,6 +6,7 @@ import ValidationQuiz from './ValidationQuiz'
 import { useLanguage } from '@/i18n/LanguageContext'
 import { ROLE_VALUES } from '@/i18n/translations'
 import { IconMail, IconUser, IconPin } from '@/components/Icons'
+import { supabase } from '@/lib/supabaseClient'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -58,37 +59,19 @@ export default function PreregisterForm({ id }: { id?: string }) {
 
     if (!validate()) return
 
-    const webhookUrl = process.env.NEXT_PUBLIC_PREREGISTER_WEBHOOK_URL
-
-    if (!webhookUrl) {
-      setStatus('error')
-      return
-    }
-
     setStatus('loading')
 
     const payload = {
       email: email.trim(),
       role,
-      city: city.trim(),
-      timestamp: new Date().toISOString(),
+      city: city.trim() || null,
       source: getSource(),
     }
 
     try {
-      // Aceeași convenție ca la preregistrare: text/plain evită preflight-ul
-      // OPTIONS pe care Google Apps Script nu îl gestionează corect.
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-      })
+      const { error } = await supabase.from('preregistrations').insert(payload)
 
-      const data = await response.json().catch(() => null)
-
-      if (response.ok && data && data.success !== false) {
+      if (!error) {
         setProgress(100)
         await new Promise((resolve) => setTimeout(resolve, 250))
         setStatus('idle')
@@ -107,12 +90,7 @@ export default function PreregisterForm({ id }: { id?: string }) {
 
   if (stage === 'quiz') {
     return (
-      <ValidationQuiz
-        id={id}
-        email={email.trim()}
-        webhookUrl={process.env.NEXT_PUBLIC_PREREGISTER_WEBHOOK_URL || ''}
-        onDone={() => setStage('done')}
-      />
+      <ValidationQuiz id={id} email={email.trim()} onDone={() => setStage('done')} />
     )
   }
 

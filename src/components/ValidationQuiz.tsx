@@ -5,6 +5,7 @@ import formStyles from './PreregisterForm.module.css'
 import styles from './ValidationQuiz.module.css'
 import { useLanguage } from '@/i18n/LanguageContext'
 import { FEATURE_VALUES, FREQUENCY_VALUES, PRICE_VALUES } from '@/i18n/translations'
+import { supabase } from '@/lib/supabaseClient'
 
 type StepId =
   | 'current_process'
@@ -75,12 +76,10 @@ function isStepValid(id: StepId, answers: Answers): boolean {
 export default function ValidationQuiz({
   id,
   email,
-  webhookUrl,
   onDone,
 }: {
   id?: string
   email: string
-  webhookUrl: string
   onDone: () => void
 }) {
   const { t } = useLanguage()
@@ -132,33 +131,23 @@ export default function ValidationQuiz({
     setSending(true)
 
     const payload = {
-      type: 'validare',
       email,
-      current_process: answers.current_process.trim(),
-      biggest_pain: answers.biggest_pain.trim(),
-      has_paid: answers.has_paid,
-      paid_amount: answers.has_paid === 'Da' ? answers.paid_amount.trim() : '',
-      frequency: answers.frequency,
+      current_process: answers.current_process.trim() || null,
+      biggest_pain: answers.biggest_pain.trim() || null,
+      has_paid: answers.has_paid || null,
+      paid_amount: answers.has_paid === 'Da' ? answers.paid_amount.trim() || null : null,
+      frequency: answers.frequency || null,
       top_features: answers.top_features,
-      would_pay: answers.would_pay,
-      price_range: answers.would_pay !== 'Nu' ? answers.price_range : '',
-      concerns: answers.concerns.trim(),
+      would_pay: answers.would_pay || null,
+      price_range: answers.would_pay !== 'Nu' ? answers.price_range || null : null,
+      concerns: answers.concerns.trim() || null,
     }
 
-    if (webhookUrl) {
-      try {
-        // Aceeași convenție ca la preregistrare: text/plain evită preflight-ul
-        // OPTIONS pe care Google Apps Script nu îl gestionează corect.
-        await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8',
-          },
-          body: JSON.stringify(payload),
-        })
-      } catch (err) {
-        // Chestionarul e opțional, nu blocăm confirmarea finală dacă trimiterea eșuează.
-      }
+    try {
+      // Chestionarul e opțional, nu blocăm confirmarea finală dacă trimiterea eșuează.
+      await supabase.from('quiz_responses').insert(payload)
+    } catch (err) {
+      // ignorat intenționat
     }
 
     setProgress(100)

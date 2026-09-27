@@ -1,6 +1,6 @@
-export type Language = 'en' | 'ro'
+export type Language = 'en' | 'ro' | 'it'
 
-export const LANGUAGES: Language[] = ['en', 'ro']
+export const LANGUAGES: Language[] = ['en', 'ro', 'it']
 
 // Canonical option values are kept stable (in Romanian) across both languages
 // so the Google Sheet backend (Code.gs) and existing rows stay consistent no
@@ -491,6 +491,234 @@ export const TRANSLATIONS = {
           contact: 'GYM_user2',
           incoming: 'Salut! Am ascultat piesa, sună foarte bine 🔥',
           outgoing: 'Mersi! Vrei să colaborăm la un mix?',
+        },
+      },
+    },
+    it: {
+      nav: {
+        home: 'Home',
+        features: 'Funzionalità',
+        audience: 'Per chi è',
+        register: 'Iscriviti',
+        contact: 'Contatti',
+        followUs: 'Seguici',
+      },
+      hero: {
+        badge: 'ACCESSO ANTICIPATO',
+        titleCreate: 'Crea.',
+        titleCollaborate: 'Collabora.',
+        titleGetPaid: 'Fatti pagare.',
+        titleAccent: 'GrowYourMusic.',
+        headline: 'Qui la tua musica cresce.',
+        subtitle:
+          'GrowYourMusic riunisce artisti, produttori, beatmaker, ingegneri del suono, creator visivi, studi e manager in un’unica piattaforma per collaborare e crescere.',
+        screenshotAlt: 'Il feed social di GrowYourMusic',
+      },
+      founder: {
+        badge: '60 GIORNI',
+        title: 'Vantaggio membro fondatore',
+        textPre: 'I primi iscritti ottengono un',
+        textAccent: 'boost di visibilità',
+        textPost:
+          'negli elenchi (marketplace, mappa degli studi, feed) durante i primi 60 giorni della piattaforma.',
+      },
+      features: {
+        label: 'PERCHÉ GROWYOURMUSIC',
+        title: 'Tutto ciò che ti serve per crescere',
+        subtitle: 'Ogni parte della tua carriera musicale, in un unico posto.',
+        items: [
+          {
+            title: 'Un marketplace per tutta l’industria',
+            text: 'Vendi e acquista prodotti e servizi musicali: beat, mixing, mastering, visual e altro ancora. Ogni prodotto ha il suo prezzo e la sua pagina di dettaglio, direttamente nella piattaforma.',
+          },
+          {
+            title: 'Messaggi e collaborazione diretta',
+            text: 'Trova collaboratori, definisci i dettagli e invia offerte senza lasciare la piattaforma. Le conversazioni restano organizzate in una lista contatti facile da seguire.',
+          },
+          {
+            title: 'Una mappa interattiva degli studi',
+            text: 'Scopri gli studi di registrazione della tua città su una mappa interattiva. Vedi la tariffa oraria e prenota una sessione direttamente, senza chiamate né messaggi in più.',
+          },
+          {
+            title: 'Gestione con calendario e manager',
+            text: 'Organizza sessioni, uscite ed eventi in un calendario dedicato. Il tuo manager può aggiungere e modificare eventi direttamente dal tuo account.',
+          },
+          {
+            title: 'Una libreria per singoli, album ed EP',
+            text: 'Organizza le tue tracce per progetto: singoli, album o EP. Segui l’avanzamento di ogni brano e tieni tutto strutturato in un unico posto.',
+          },
+          {
+            title: 'Classifica per artisti e produttori',
+            text: 'Scala la classifica grazie a collaborazioni, vendite e attività sulla piattaforma. Classifiche separate per artisti e produttori ti mostrano esattamente dove ti trovi, e i primi in classifica vengono premiati.',
+          },
+          {
+            title: 'Pubblicazione di contenuti nel feed',
+            text: 'Pubblica immagini, video o testo direttamente nel tuo feed. Scegli il formato giusto per ogni aggiornamento e raggiungi la tua community in pochi secondi.',
+          },
+          {
+            title: 'Scrittura dei testi assistita dall’IA',
+            text: 'Scrivi i testi direttamente nell’editor integrato e ricevi suggerimenti per rime e continuazioni. Le tue idee restano salvate accanto al brano su cui stai lavorando.',
+          },
+          {
+            title: 'Portafoglio e transazioni',
+            text: 'Gestisci saldo, depositi e prelievi da un unico portafoglio digitale. I pagamenti per collaborazioni e prodotti passano direttamente dalla piattaforma.',
+          },
+          {
+            title: 'Contratti di collaborazione',
+            text: 'Crea contratti di collaborazione con termini chiari e uno stato visibile a entrambe le parti. Accetta, rifiuta o segui l’avanzamento di ogni collaborazione.',
+          },
+        ],
+      },
+      audience: {
+        label: 'PER CHI È',
+        title: 'Per chi è GrowYourMusic?',
+        subtitle: 'Una piattaforma creata per chiunque faccia parte del processo di creazione musicale.',
+        tags: ['Artisti', 'Produttori', 'Beatmaker', 'Ingegneri del suono', 'Creator visivi', 'Studi', 'Manager di artisti'],
+      },
+      cta: {
+        title: 'Sii tra i primi ad avere accesso',
+        subtitle: 'Iscriviti ora e ricevi una notifica non appena la piattaforma sarà online.',
+        button: 'Voglio l’accesso anticipato',
+      },
+      footer: {
+        copyright: '© 2026 GrowYourMusic',
+      },
+      form: {
+        emailLabel: 'Email',
+        emailPlaceholder: 'nome@esempio.com',
+        roleLabel: 'Ruolo',
+        rolePlaceholder: 'Scegli il tuo ruolo',
+        cityLabel: 'Città (facoltativo)',
+        cityPlaceholder: 'Milano',
+        submitButton: 'Voglio l’accesso anticipato',
+        submitButtonLoading: 'Invio in corso...',
+        errorEmailRequired: 'L’indirizzo email è obbligatorio.',
+        errorEmailInvalid: 'Inserisci un indirizzo email valido.',
+        errorRoleRequired: 'Seleziona il tuo ruolo.',
+        errorSubmitFailed: 'Invio non riuscito. Controlla la connessione e riprova.',
+        retryButton: 'Riprova',
+        successBadge: 'Confermato',
+        successTitle: 'Sei nella lista',
+        successText1: 'Grazie. Ti scriveremo non appena GrowYourMusic sarà disponibile per il tuo account.',
+        successText2:
+          'Come vantaggio per i membri fondatori, i primi iscritti ottengono un boost di visibilità negli elenchi (marketplace, mappa degli studi, feed) durante i primi 60 giorni della piattaforma.',
+        roleLabels: {
+          Artist: 'Artista',
+          'Producător': 'Produttore',
+          Beatmaker: 'Beatmaker',
+          'Inginer audio': 'Ingegnere del suono',
+          'Creator vizual': 'Creator visivo',
+          Studio: 'Studio',
+          'Manager artiști': 'Manager di artisti',
+          Altul: 'Altro',
+        } as Record<(typeof ROLE_VALUES)[number], string>,
+      },
+      quiz: {
+        stepLabel: (n: number, total: number) => `Domanda ${n} di ${total}`,
+        skipButton: 'Salta',
+        backButton: 'Indietro',
+        continueButton: 'Continua',
+        submitButton: 'Invia',
+        sendingButton: 'Invio in corso...',
+        optionalPlaceholder: 'Facoltativo',
+        questions: {
+          current_process: 'Come trovi attualmente produttori, studi o artisti con cui collaborare per i tuoi progetti?',
+          biggest_pain: 'Quale parte di questo processo trovi più frustrante o dispendiosa in termini di tempo?',
+          has_paid: 'Hai mai pagato per un servizio che ti aiuta in questo (studio, promozione, management, mixing online)?',
+          paid_amount: 'Quanto hai pagato l’ultima volta, e per cosa esattamente?',
+          frequency: 'Quanto spesso hai bisogno di questo tipo di collaborazione o servizio?',
+          top_features: 'Quale funzionalità ti sembra più utile in questo momento?',
+          would_pay: 'Saresti disposto a pagare un abbonamento mensile per una piattaforma che risolve questo problema?',
+          price_range: 'Quale importo mensile ti sembrerebbe giusto?',
+          concerns: 'Cosa ti impedirebbe di usare una piattaforma come questa?',
+        },
+        paidAmountPlaceholder: 'es. 50 € per il mixing',
+        yesNoLabels: { Da: 'Sì', Nu: 'No' } as Record<(typeof YES_NO_VALUES)[number], string>,
+        yesNoMaybeLabels: { Da: 'Sì', Nu: 'No', Depinde: 'Dipende' } as Record<
+          (typeof YES_NO_MAYBE_VALUES)[number],
+          string
+        >,
+        frequencyLabels: {
+          'Săptămânal': 'Settimanale',
+          Lunar: 'Mensile',
+          Ocazional: 'Occasionale',
+        } as Record<(typeof FREQUENCY_VALUES)[number], string>,
+        featureLabels: {
+          'Marketplace pentru colaborări': 'Marketplace per collaborazioni',
+          'Hartă studiouri cu booking': 'Mappa degli studi con prenotazione',
+          'Management și calendar cu manageri': 'Gestione e calendario con manager',
+          'Charts și vizibilitate în comunitate': 'Classifiche e visibilità nella community',
+          'Unealtă de scriere versuri cu AI': 'Strumento di scrittura testi con IA',
+        } as Record<(typeof FEATURE_VALUES)[number], string>,
+        priceLabels: {
+          'Sub 5 euro': 'Meno di 5 €',
+          '5 până la 15 euro': 'Da 5 a 15 €',
+          '15 până la 30 euro': 'Da 15 a 30 €',
+          'Peste 30 euro': 'Più di 30 €',
+        } as Record<(typeof PRICE_VALUES)[number], string>,
+      },
+      mockups: {
+        studio: {
+          name: 'Studio Noiz',
+          location: 'Sector 3, Bucarest',
+          price: '25 € / ora',
+          button: 'Prenota',
+        },
+        management: {
+          days: ['L', 'M', 'M', 'G', 'V', 'S', 'D'],
+          event: 'Sessione di registrazione con il manager',
+        },
+        library: {
+          tracks: ['Singolo - Notti Lunghe', 'Album - La Mia Strada', 'EP - Prime Righe'],
+        },
+        post: {
+          title: 'Scegli il tipo di post',
+          options: ['Immagine', 'Video', 'Testo'],
+          button: 'Pubblica',
+        },
+        wallet: {
+          label: 'Saldo disponibile',
+          amount: '250 €',
+          deposit: 'Deposita',
+          withdraw: 'Preleva',
+          history: [
+            { label: 'Collaborazione Mix & Master', amount: '+60 €' },
+            { label: 'Prenotazione Studio Noiz', amount: '-25 €' },
+          ],
+        },
+        contract: {
+          title: 'Contratto di collaborazione',
+          signed: 'Firmato',
+          pending: 'In attesa',
+          fee: 'Compenso',
+          rows: [
+            { names: 'GYM_user1 x GYM_user2', fee: '80 €', status: 'signed' as const },
+            { names: 'GYM_user1 x GYM_user3', fee: '50 €', status: 'pending' as const },
+          ],
+        },
+        lyrics: {
+          lines: [
+            'Strofa 1',
+            'Cammino per la città, inseguendo la luce',
+            'Ogni passo che faccio, so dove mi conduce',
+            '',
+            'Ritornello',
+            'Ci rialziamo ogni notte,',
+          ],
+          aiTag: 'Suggerimento IA',
+          aiSuggestion: 'La prossima rima potrebbe continuare con "fino all’alba ci batte".',
+        },
+        marketplace: {
+          items: [
+            { name: 'Beat Trap Melodico', price: '30 €' },
+            { name: 'Mix & Master', price: '60 €' },
+            { name: 'Design Copertina', price: '15 €' },
+          ],
+        },
+        messaging: {
+          contact: 'GYM_user2',
+          incoming: 'Ciao! Ho ascoltato il pezzo, suona benissimo 🔥',
+          outgoing: 'Grazie! Ti va di collaborare a un mix?',
         },
       },
     },

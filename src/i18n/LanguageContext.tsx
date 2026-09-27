@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
-import { TRANSLATIONS, type Language, type TranslationShape } from './translations'
+import { LANGUAGES, TRANSLATIONS, type Language, type TranslationShape } from './translations'
 
 const STORAGE_KEY = 'gym_lang'
 const DEFAULT_LANGUAGE: Language = 'en'
@@ -19,8 +19,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY)
-    if (stored === 'en' || stored === 'ro') {
-      setLangState(stored)
+    if (LANGUAGES.includes(stored as Language)) {
+      setLangState(stored as Language)
     }
   }, [])
 

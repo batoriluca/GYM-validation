@@ -7,6 +7,7 @@ import { useLanguage } from '@/i18n/LanguageContext'
 import { ROLE_VALUES } from '@/i18n/translations'
 import { IconMail, IconUser, IconPin } from '@/components/Icons'
 import { supabase } from '@/lib/supabaseClient'
+import { track } from '@vercel/analytics'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -72,14 +73,17 @@ export default function PreregisterForm({ id }: { id?: string }) {
       const { error } = await supabase.from('preregistrations').insert(payload)
 
       if (!error) {
+        track('waitlist_signup', { role, has_city: Boolean(payload.city), source: payload.source })
         setProgress(100)
         await new Promise((resolve) => setTimeout(resolve, 250))
         setStatus('idle')
         setStage('quiz')
       } else {
+        track('waitlist_signup_error', { reason: 'supabase' })
         setStatus('error')
       }
     } catch (err) {
+      track('waitlist_signup_error', { reason: 'network' })
       setStatus('error')
     }
   }

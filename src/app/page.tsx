@@ -9,6 +9,7 @@ import Transport from '@/components/Transport'
 import Arrangement from '@/components/Arrangement'
 import BentoBackdrop from '@/components/BentoBackdrop'
 import FounderBenefit from '@/components/FounderBenefit'
+import { track } from '@vercel/analytics'
 import { useLanguage } from '@/i18n/LanguageContext'
 import { IconArrowRight, IconUser, IconInstagram, IconYoutube, IconTiktok, IconMail } from '@/components/Icons'
 import {
@@ -199,7 +200,11 @@ export default function Home() {
         <Reveal as="div" className={styles.ctaBandInner}>
           <h2 className={styles.ctaTitle}>{t.cta.title}</h2>
           <p className={styles.ctaSubtitle}>{t.cta.subtitle}</p>
-          <a className={styles.ctaButton} href="#preregister-form">
+          <a
+            className={styles.ctaButton}
+            href="#preregister-form"
+            onClick={() => track('cta_click', { location: 'cta_band' })}
+          >
             {t.cta.button}
             <IconArrowRight className={styles.ctaButtonIcon} />
           </a>
@@ -227,7 +232,9 @@ export default function Home() {
             <a href="#top">{t.nav.home}</a>
             <a href="#features">{t.nav.features}</a>
             <a href="#audience">{t.nav.audience}</a>
-            <a href="#preregister-form">{t.nav.register}</a>
+            <a href="#preregister-form" onClick={() => track('cta_click', { location: 'footer_nav' })}>
+              {t.nav.register}
+            </a>
           </div>
 
           <div className={styles.footerContactCol}>

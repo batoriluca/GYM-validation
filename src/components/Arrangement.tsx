@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { track } from '@vercel/analytics'
 import { useLanguage } from '@/i18n/LanguageContext'
 import styles from './Arrangement.module.css'
 
@@ -36,7 +37,11 @@ export default function Arrangement() {
 
         <p className={styles.heroSubtitle}>{t.hero.subtitle}</p>
 
-        <a className={styles.cta} href="#preregister-form">
+        <a
+          className={styles.cta}
+          href="#preregister-form"
+          onClick={() => track('cta_click', { location: 'arrangement' })}
+        >
           <span className={styles.ctaLabel}>{t.cta.button}</span>
         </a>
       </div>

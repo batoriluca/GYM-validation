@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { track } from '@vercel/analytics'
 import { useLanguage } from '@/i18n/LanguageContext'
 import { IconPause, IconPlay } from '@/components/Icons'
 import styles from './Transport.module.css'
@@ -183,7 +184,11 @@ export default function Transport() {
 
         <div className={styles.controls}>
           <LanguageSwitcher />
-          <a className={styles.record} href="#preregister-form">
+          <a
+            className={styles.record}
+            href="#preregister-form"
+            onClick={() => track('cta_click', { location: 'transport_record' })}
+          >
             {t.nav.register}
           </a>
         </div>

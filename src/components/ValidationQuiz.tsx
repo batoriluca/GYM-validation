@@ -6,6 +6,7 @@ import styles from './ValidationQuiz.module.css'
 import { useLanguage } from '@/i18n/LanguageContext'
 import { FEATURE_VALUES, FREQUENCY_VALUES, PRICE_VALUES } from '@/i18n/translations'
 import { supabase } from '@/lib/supabaseClient'
+import { track } from '@vercel/analytics'
 
 type StepId =
   | 'current_process'
@@ -143,6 +144,14 @@ export default function ValidationQuiz({
       concerns: answers.concerns.trim() || null,
     }
 
+    track('quiz_completed', {
+      would_pay: payload.would_pay,
+      price_range: payload.price_range,
+      has_paid: payload.has_paid,
+      frequency: payload.frequency,
+      top_features_count: payload.top_features.length,
+    })
+
     try {
       // Chestionarul e opțional, nu blocăm confirmarea finală dacă trimiterea eșuează.
       await supabase.from('quiz_responses').insert(payload)
@@ -170,6 +179,7 @@ export default function ValidationQuiz({
   }
 
   const handleSkip = () => {
+    track('quiz_step_skipped', { step: currentStepId })
     if (isLastStep) {
       submit()
     } else {

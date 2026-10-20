@@ -8,8 +8,9 @@ import Reveal from '@/components/Reveal'
 import Transport from '@/components/Transport'
 import Arrangement from '@/components/Arrangement'
 import BentoBackdrop from '@/components/BentoBackdrop'
+import FounderBenefit from '@/components/FounderBenefit'
 import { useLanguage } from '@/i18n/LanguageContext'
-import { IconArrowRight, IconUser, IconSpark, IconInstagram, IconYoutube, IconTiktok, IconMail } from '@/components/Icons'
+import { IconArrowRight, IconUser, IconInstagram, IconYoutube, IconTiktok, IconMail } from '@/components/Icons'
 import {
   MarketplaceMockup,
   MessagingMockup,
@@ -106,18 +107,7 @@ export default function Home() {
         <section className={styles.joinBanner} id="preregister-form">
           <span className={`${styles.blob} ${styles.blobBanner}`} />
           <Reveal className={styles.joinBannerInner}>
-            <div className={styles.joinBannerText}>
-              <span className={styles.founderIcon}>
-                <IconSpark />
-              </span>
-              <span className={styles.founderBadge}>{t.founder.badge}</span>
-              <h3 className={styles.founderTitle}>{t.founder.title}</h3>
-              <p className={styles.founderText}>
-                {t.founder.textPre}{' '}
-                <span className={styles.preregisterAccent}>{t.founder.textAccent}</span>{' '}
-                {t.founder.textPost}
-              </p>
-            </div>
+            <FounderBenefit />
 
             <div className={styles.joinBannerForm}>
               <PreregisterForm />

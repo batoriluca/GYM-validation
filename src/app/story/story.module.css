@@ -1,0 +1,344 @@
+/* Story render route only (see StorySlide.tsx). Fixed 1080x1920 canvas,
+   same ground as the carousel (carousel.module.css). */
+
+.story {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: linear-gradient(165deg, #151021 0%, #120e1c 50%, #100c18 100%);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  isolation: isolate;
+}
+
+:global(body):has(.story) > :global(div[aria-hidden='true']) {
+  display: none;
+}
+
+.story :global(*),
+.story :global(*::before),
+.story :global(*::after) {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ---------- ground ---------- */
+
+.glowMain,
+.glowSecond {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.glowMain {
+  left: -60px;
+  top: 40px;
+  width: 1200px;
+  height: 900px;
+  background: radial-gradient(closest-side, rgba(58, 31, 72, 1), rgba(58, 31, 72, 0.7) 60%, rgba(58, 31, 72, 0) 100%);
+}
+
+.glowSecond {
+  left: 140px;
+  top: 760px;
+  width: 820px;
+  height: 640px;
+  background: radial-gradient(closest-side, rgba(34, 26, 64, 1), rgba(34, 26, 64, 0.7) 60%, rgba(34, 26, 64, 0) 100%);
+}
+
+.sweep {
+  position: absolute;
+  z-index: 1;
+  top: -470px;
+  right: -560px;
+  width: 940px;
+  height: 740px;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 188, 255, 0.35);
+  box-shadow: 0 0 40px 6px rgba(157, 140, 255, 0.18), inset 0 0 60px 10px rgba(157, 140, 255, 0.1);
+  filter: blur(1.5px);
+  pointer-events: none;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(ellipse 80% 70% at 50% 45%, rgba(11, 9, 18, 0) 60%, rgba(11, 9, 18, 0.7) 100%);
+  pointer-events: none;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* ---------- head ---------- */
+
+.head {
+  position: absolute;
+  z-index: 30;
+  top: 150px;
+  left: 64px;
+  right: 64px;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 168px;
+  height: auto;
+}
+
+.headline {
+  position: absolute;
+  z-index: 30;
+  top: 330px;
+  left: 64px;
+  right: 64px;
+  margin: 0;
+  text-align: center;
+  font-size: 76px;
+  font-weight: 800;
+  line-height: 1.24;
+  letter-spacing: -0.03em;
+}
+
+.headline em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #8f80f2;
+}
+
+/* ---------- frosted glass ---------- */
+
+.glass {
+  position: relative;
+  border: 1.5px solid rgba(214, 204, 255, 0.34);
+  background:
+    radial-gradient(120% 80% at 20% 0%, rgba(255, 255, 255, 0.2), transparent 55%),
+    linear-gradient(160deg, rgba(157, 140, 255, 0.2), rgba(62, 44, 140, 0.12) 55%, rgba(20, 14, 44, 0.3));
+  backdrop-filter: blur(16px) saturate(130%);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -24px 48px rgba(102, 87, 218, 0.16),
+    0 28px 60px rgba(4, 3, 12, 0.6);
+}
+
+/* Specular sheen across the upper-left corner. */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 38%);
+  pointer-events: none;
+}
+
+/* ---------- feature tiles ---------- */
+
+.node {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The lit ring each tile stands on. Only the part in front of the tile is
+   drawn: the wrapper is 30px larger on every side (room for the glow) and
+   masked with the tile's rounded silhouette, so the back of the ring never
+   shows through the glass. */
+.halo {
+  position: absolute;
+  top: 88px;
+  left: -30px;
+  right: -30px;
+  height: 114px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27280%27%20height=%27114%27%20viewBox=%270%200%20280%20114%27%3E%3Cpath%20fill-rule=%27evenodd%27%20d=%27M0%200H280V114H0Z%20M62%20-100H218V32A34%2034%200%200%201%20184%2066H96A34%2034%200%200%201%2062%2032Z%27/%3E%3C/svg%3E") no-repeat 0 0 / 280px 114px;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27280%27%20height=%27114%27%20viewBox=%270%200%20280%20114%27%3E%3Cpath%20fill-rule=%27evenodd%27%20d=%27M0%200H280V114H0Z%20M62%20-100H218V32A34%2034%200%200%201%20184%2066H96A34%2034%200%200%201%2062%2032Z%27/%3E%3C/svg%3E") no-repeat 0 0 / 280px 114px;
+}
+
+/* Same frosted glass as the tiles: lilac hairline, translucent violet fill,
+   top-edge highlight and a soft drop shadow, no gold. */
+.halo i {
+  position: absolute;
+  inset: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(214, 204, 255, 0.34);
+  background:
+    radial-gradient(120% 90% at 30% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(170deg, rgba(157, 140, 255, 0.2), rgba(62, 44, 140, 0.12) 55%, rgba(20, 14, 44, 0.3));
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -10px 22px rgba(102, 87, 218, 0.16),
+    0 14px 26px rgba(4, 3, 12, 0.5);
+}
+
+.tile {
+  width: 152px;
+  height: 152px;
+  border-radius: 34px;
+  display: grid;
+  place-items: center;
+}
+
+.glyph {
+  width: 90px;
+  height: 90px;
+  color: #f6f3ff;
+  filter: drop-shadow(0 0 12px rgba(201, 188, 255, 0.7));
+}
+
+.glyph svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tiltLeft {
+  transform: perspective(700px) rotateY(14deg);
+}
+
+.tiltRight {
+  transform: perspective(700px) rotateY(-14deg);
+}
+
+.label {
+  margin: 34px 0 0;
+  max-width: 220px;
+  text-align: center;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* ---------- central platform window ---------- */
+
+.window {
+  position: absolute;
+  z-index: 15;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.winBar {
+  display: flex;
+  gap: 9px;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid rgba(214, 204, 255, 0.18);
+}
+
+.winBar i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(241, 237, 255, 0.45);
+}
+
+.winBody {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  padding: 16px 18px 18px;
+}
+
+.winSide {
+  width: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(241, 237, 255, 0.06);
+}
+
+.winNav {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.winNav b {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(241, 237, 255, 0.55);
+}
+
+.winNav em {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(241, 237, 255, 0.4);
+}
+
+.winMain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.winWave {
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(241, 237, 255, 0.07);
+  border: 1px solid rgba(214, 204, 255, 0.16);
+}
+
+.winWave span {
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #f1edff, #c9bcff);
+  box-shadow: 0 0 6px rgba(201, 188, 255, 0.6);
+}
+
+.winCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.winCard {
+  height: 70px;
+  border-radius: 10px;
+  background: rgba(241, 237, 255, 0.07);
+  border: 1px solid rgba(214, 204, 255, 0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.winCard b {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(241, 237, 255, 0.5);
+}
+
+.winCard em {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(241, 237, 255, 0.35);
+}

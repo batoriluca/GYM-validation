@@ -78,8 +78,9 @@ export function StudioBookingCard() {
 }
 
 export function StudioMapMockup() {
+  const { t } = useLanguage()
   return (
-    <MockupFrame title="Studios">
+    <MockupFrame title={t.mockups.frames.studios}>
       <div className={styles.studioMapBody}>
         <Image
           src="/screenshots/studios_final.png"
@@ -100,7 +101,7 @@ export function ManagementMockup() {
   const active = 12
   const eventDays = [2, 5, 7, 9, 11, 14, 16, 19, 21, 23, 25, 27, 29]
   return (
-    <MockupFrame title="Calendar">
+    <MockupFrame title={t.mockups.frames.calendar}>
       <div className={styles.calendarMockup}>
         <div className={styles.calendarHeader}>
           {m.days.map((d, i) => (
@@ -135,7 +136,7 @@ export function LibraryMockup() {
   const tracks = t.mockups.library.tracks
   const progressValues = [72, 45, 90]
   return (
-    <MockupFrame title="Library">
+    <MockupFrame title={t.mockups.frames.library}>
       <div className={styles.libraryMockup}>
         {tracks.map((name, i) => (
           <div key={name} className={styles.trackTile}>
@@ -156,14 +157,16 @@ export function LibraryMockup() {
 const LEADERBOARD_RANK_STYLES = [styles.leaderboardRankGold, styles.leaderboardRankSilver, styles.leaderboardRankBronze]
 
 export function ChartsMockup() {
+  const { t } = useLanguage()
+  const m = t.mockups.charts
   const leaderboard = [
-    { rank: 1, name: 'GYM_user1', points: 1280 },
-    { rank: 2, name: 'GYM_user3', points: 1140 },
-    { rank: 3, name: 'GYM_user2', points: 980 },
-    { rank: 4, name: 'GYM_user5', points: 820 },
+    { rank: 1, name: 'GYM_user1' },
+    { rank: 2, name: 'GYM_user3' },
+    { rank: 3, name: 'GYM_user2' },
+    { rank: 4, name: 'GYM_user5' },
   ]
   return (
-    <MockupFrame title="Leaderboard" tint="gold">
+    <MockupFrame title={t.mockups.frames.leaderboard} tint="gold">
       <div className={styles.leaderboardMockup}>
         {leaderboard.map((u) => (
           <div
@@ -176,8 +179,8 @@ export function ChartsMockup() {
             <span className={styles.leaderboardAvatar} />
             <span className={styles.leaderboardName}>{u.name}</span>
             <span className={styles.leaderboardPoints}>
-              {u.points}
-              <span className={styles.leaderboardPointsUnit}>pts</span>
+              {m.points[u.rank - 1]}
+              <span className={styles.leaderboardPointsUnit}>{m.unit}</span>
             </span>
           </div>
         ))}
@@ -191,7 +194,7 @@ export function PostCreationMockup() {
   const m = t.mockups.post
   const icons = [<IconImage key="i" />, <IconVideo key="v" />, <IconText key="t" />]
   return (
-    <MockupFrame title="New post">
+    <MockupFrame title={t.mockups.frames.newPost}>
       <div className={styles.postMockup}>
         <p className={styles.postMockupTitle}>{m.title}</p>
         <div className={styles.postOptions}>
@@ -212,7 +215,7 @@ export function WalletMockup() {
   const { t } = useLanguage()
   const m = t.mockups.wallet
   return (
-    <MockupFrame title="Wallet" tint="gold">
+    <MockupFrame title={t.mockups.frames.wallet} tint="gold">
       <div className={styles.walletMockup}>
         <div className={styles.walletTop}>
           <span className={styles.walletIcon}><IconWallet /></span>
@@ -247,7 +250,7 @@ export function ContractMockup() {
   const { t } = useLanguage()
   const m = t.mockups.contract
   return (
-    <MockupFrame title="Contracts">
+    <MockupFrame title={t.mockups.frames.contracts}>
       <div className={styles.contractMockup}>
         {m.rows.map((row) => (
           <div key={row.names} className={styles.contractRowWrap}>
@@ -275,7 +278,7 @@ export function LyricsMockup() {
   const { t } = useLanguage()
   const m = t.mockups.lyrics
   return (
-    <MockupFrame title="Lyrics">
+    <MockupFrame title={t.mockups.frames.lyrics}>
       <div className={styles.lyricsMockup}>
         <div className={styles.lyricsLines}>
           {m.lines.map((line, i) => (
@@ -299,7 +302,7 @@ export function MarketplaceMockup() {
   const { t } = useLanguage()
   const items = t.mockups.marketplace.items
   return (
-    <MockupFrame title="Marketplace">
+    <MockupFrame title={t.mockups.frames.marketplace}>
       <div className={styles.marketplaceMockup}>
         {items.map((item) => (
           <div key={item.name} className={styles.productTile}>
@@ -319,7 +322,7 @@ export function MessagingMockup() {
   const { t } = useLanguage()
   const m = t.mockups.messaging
   return (
-    <MockupFrame title="Messages">
+    <MockupFrame title={t.mockups.frames.messages}>
       <div className={styles.messagingMockup}>
         <div className={styles.messagingHeader}>
           <span className={styles.messagingAvatar} />

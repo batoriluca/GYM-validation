@@ -2,6 +2,7 @@
 
 import { type ReactNode } from 'react'
 import styles from './SocialCards.module.css'
+import { useLanguage } from '@/i18n/LanguageContext'
 
 // Full cards lifted from the "Social media" Instagram-carousel decks —
 // same section header, same copy, same numbers, just scaled down from a
@@ -24,20 +25,22 @@ function PCard({ number, title, children }: { number: string; title: string; chi
 
 // wallet/02-wallet.html — section "01", "Your balance, always visible"
 export function WalletBalanceCard() {
+  const { t } = useLanguage()
+  const c = t.socialCards.wallet
   return (
-    <PCard number="01" title="Your balance, always visible">
+    <PCard number="01" title={c.title}>
       <div className={styles.walletRow}>
         <div>
-          <p className={styles.balanceLabel}>Total balance</p>
-          <p className={styles.balanceValue}>$860</p>
+          <p className={styles.balanceLabel}>{c.total}</p>
+          <p className={styles.balanceValue}>{c.totalValue}</p>
           <div className={styles.lockedBox}>
-            <p className={styles.lockedLabel}>Locked balance</p>
-            <p className={styles.lockedValue}>$120</p>
+            <p className={styles.lockedLabel}>{c.locked}</p>
+            <p className={styles.lockedValue}>{c.lockedValue}</p>
           </div>
         </div>
         <div className={styles.walletActions}>
-          <span className={styles.walletBtn}>Withdraw</span>
-          <span className={styles.walletBtn}>Deposit</span>
+          <span className={styles.walletBtn}>{c.withdraw}</span>
+          <span className={styles.walletBtn}>{c.deposit}</span>
         </div>
       </div>
     </PCard>
@@ -46,16 +49,18 @@ export function WalletBalanceCard() {
 
 // leaderboard/04-podium.html — section "03", "Rankings update live"
 const PODIUM_ROWS = [
-  { rank: 1, name: 'GYM_user12', points: '1,240' },
-  { rank: 2, name: 'GYM_user236', points: '1,120' },
-  { rank: 3, name: 'GYM_user31', points: '980' },
-  { rank: 4, name: 'GYM_user453', points: '860' },
-  { rank: 5, name: 'GYM_user89', points: '790' },
+  { rank: 1, name: 'GYM_user12' },
+  { rank: 2, name: 'GYM_user236' },
+  { rank: 3, name: 'GYM_user31' },
+  { rank: 4, name: 'GYM_user453' },
+  { rank: 5, name: 'GYM_user89' },
 ]
 
 export function LeaderboardPodiumCard() {
+  const { t } = useLanguage()
+  const c = t.socialCards.podium
   return (
-    <PCard number="03" title="Rankings update live">
+    <PCard number="03" title={c.title}>
       <div className={styles.lbList}>
         {PODIUM_ROWS.map((row) => (
           <div key={row.rank} className={`${styles.lbRow} ${row.rank === 1 ? styles.lbTop : ''}`}>
@@ -64,7 +69,7 @@ export function LeaderboardPodiumCard() {
               <span className={styles.lbAvatar} />
               <span className={styles.lbName}>{row.name}</span>
             </div>
-            <span className={styles.lbPts}>{row.points} points</span>
+            <span className={styles.lbPts}>{c.points[row.rank - 1]} {c.unit}</span>
           </div>
         ))}
       </div>
@@ -127,26 +132,28 @@ export function VaultLyricsCard() {
 // category chips, and both product cards (no numbered section header —
 // this slide never had one in the source deck).
 const SHOP_PRODUCTS = [
-  { variant: 'beat' as const, cover: 'Beat', title: 'Hip-Hop Beat Pack', price: '$45', seller: 'GYM_user1' },
-  { variant: 'mix' as const, cover: 'Mix & Master', title: 'Full Mix & Master', price: '$120', seller: 'GYM_user4' },
+  { variant: 'beat' as const, cover: 'Beat', seller: 'GYM_user1' },
+  { variant: 'mix' as const, cover: 'Mix & Master', seller: 'GYM_user4' },
 ]
 
 export function MarketplaceShopCard() {
+  const { t } = useLanguage()
+  const c = t.socialCards.shop
+  const products = SHOP_PRODUCTS.map((item, i) => ({ ...item, ...c.products[i] }))
   return (
     <div className={styles.shopWrap}>
       <div className={styles.shopHeader}>
-        <p className={styles.shopTitle}>Shop</p>
-        <p className={styles.shopSub}>Discover products and services made by the GrowYourMusic community</p>
+        <p className={styles.shopTitle}>{c.title}</p>
+        <p className={styles.shopSub}>{c.subtitle}</p>
       </div>
       <div className={styles.chipRow}>
-        <span className={`${styles.chip} ${styles.chipActive}`}>All</span>
-        <span className={styles.chip}>Beats</span>
-        <span className={styles.chip}>Visual/Artwork</span>
-        <span className={styles.chip}>Music Video Edit</span>
-        <span className={styles.chip}>Mix Master</span>
-        <span className={styles.chip}>Other</span>
+        {c.chips.map((chip, i) => (
+          <span key={chip} className={`${styles.chip} ${i === 0 ? styles.chipActive : ''}`}>
+            {chip}
+          </span>
+        ))}
       </div>
-      {SHOP_PRODUCTS.map((item) => (
+      {products.map((item) => (
         <div key={item.title} className={styles.prodCard}>
           <div className={`${styles.prodCover} ${item.variant === 'beat' ? styles.coverBeat : styles.coverMix}`}>
             <span className={styles.prodCoverLabel}>{item.cover}</span>
@@ -161,7 +168,7 @@ export function MarketplaceShopCard() {
                 <span className={styles.avatarCircle} />
                 <span className={styles.prodUsername}>{item.seller}</span>
               </div>
-              <span className={styles.viewBtn}>View details</span>
+              <span className={styles.viewBtn}>{c.view}</span>
             </div>
           </div>
         </div>
@@ -171,37 +178,37 @@ export function MarketplaceShopCard() {
 }
 
 // marketplace/03-sell.html — section "01", "List your own service"
-const SELL_CATEGORIES = ['Beat', 'Visual/Artwork', 'Mix Master', 'Music Video Edit', 'Other']
-
 export function MarketplaceSellCard() {
+  const { t } = useLanguage()
+  const c = t.socialCards.sell
   return (
-    <PCard number="01" title="List your own service">
+    <PCard number="01" title={c.title}>
       <div className={styles.formCol}>
         <div className={styles.field}>
-          <p className={styles.fieldLabel}>Product title</p>
-          <p className={styles.fieldValue}>Lofi Guitar Loop Kit</p>
+          <p className={styles.fieldLabel}>{c.productLabel}</p>
+          <p className={styles.fieldValue}>{c.productValue}</p>
         </div>
         <div className={styles.field}>
-          <p className={styles.fieldLabel}>Category</p>
+          <p className={styles.fieldLabel}>{c.categoryLabel}</p>
           <div className={styles.catRow}>
-            {SELL_CATEGORIES.map((cat) => (
-              <span key={cat} className={`${styles.catPill} ${cat === 'Beat' ? styles.catPillActive : ''}`}>
+            {c.categories.map((cat, i) => (
+              <span key={cat} className={`${styles.catPill} ${i === 0 ? styles.catPillActive : ''}`}>
                 {cat}
               </span>
             ))}
           </div>
         </div>
         <div className={styles.field}>
-          <p className={styles.fieldLabel}>Price</p>
-          <p className={styles.fieldValue}>$35</p>
+          <p className={styles.fieldLabel}>{c.priceLabel}</p>
+          <p className={styles.fieldValue}>{c.priceValue}</p>
         </div>
         <div className={styles.field}>
-          <p className={styles.fieldLabel}>Description</p>
+          <p className={styles.fieldLabel}>{c.descriptionLabel}</p>
           <p className={styles.fieldValuePlaceholder}>
-            10 warm, guitar loops, tagged and ready to drop into your DAW…
+            {c.descriptionValue}
           </p>
         </div>
-        <span className={styles.submitBtn}>Create product</span>
+        <span className={styles.submitBtn}>{c.submit}</span>
       </div>
     </PCard>
   )
@@ -233,20 +240,22 @@ const VOCAL_TAKES = [
 ]
 
 export function VaultVocalsCard() {
+  const { t } = useLanguage()
+  const c = t.socialCards.vocals
   return (
-    <PCard number="05" title="Every take, labeled and ready">
+    <PCard number="05" title={c.title}>
       <div className={styles.vocalFilterRow}>
-        <span className={`${styles.vocalChip} ${styles.vocalChipActive}`}>All</span>
-        <span className={styles.vocalChip}>Raw</span>
-        <span className={styles.vocalChip}>Mix-Mastered</span>
+        <span className={`${styles.vocalChip} ${styles.vocalChipActive}`}>{c.all}</span>
+        <span className={styles.vocalChip}>{c.raw}</span>
+        <span className={styles.vocalChip}>{c.mixMastered}</span>
       </div>
       {VOCAL_TAKES.map((take) => (
         <div key={take.name} className={styles.vocalRow}>
           <span className={`${styles.vocalBadge} ${take.variant === 'raw' ? styles.vocalBadgeRaw : styles.vocalBadgeMix}`}>
-            {take.variant === 'raw' ? 'Raw' : 'Mix-Mastered'}
+            {take.variant === 'raw' ? c.raw : c.mixMastered}
           </span>
           <span className={styles.vocalName}>{take.name}</span>
-          <span className={styles.vocalDownload}>Download</span>
+          <span className={styles.vocalDownload}>{c.download}</span>
         </div>
       ))}
     </PCard>
@@ -277,19 +286,21 @@ const COLLAB_ROWS = [
 ]
 
 export function VaultCollabCard() {
+  const { t } = useLanguage()
+  const c = t.socialCards.collab
   return (
-    <PCard number="07" title="Bring collaborators onto any track or album">
+    <PCard number="07" title={c.title}>
       <div className={styles.collabList}>
         {COLLAB_ROWS.map((row) => (
           <div key={row.name} className={styles.collabRow}>
             <span className={styles.collabAvatar} />
             <span className={styles.collabName}>{row.name}</span>
             <span className={`${styles.collabStatus} ${row.status === 'Accepted' ? styles.statusAccepted : styles.statusPending}`}>
-              {row.status}
+              {row.status === 'Accepted' ? c.accepted : c.pending}
             </span>
           </div>
         ))}
-        <span className={styles.inviteBtn}>Invite collaborator</span>
+        <span className={styles.inviteBtn}>{c.invite}</span>
       </div>
     </PCard>
   )

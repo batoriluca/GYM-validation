@@ -14,15 +14,18 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>(DEFAULT_LANGUAGE)
+// `forceLang` pins the language and ignores the stored preference (used by
+// the internal carousel render route, which always renders in Italian).
+export function LanguageProvider({ children, forceLang }: { children: ReactNode; forceLang?: Language }) {
+  const [lang, setLangState] = useState<Language>(forceLang ?? DEFAULT_LANGUAGE)
 
   useEffect(() => {
+    if (forceLang) return
     const stored = window.localStorage.getItem(STORAGE_KEY)
     if (LANGUAGES.includes(stored as Language)) {
       setLangState(stored as Language)
     }
-  }, [])
+  }, [forceLang])
 
   useEffect(() => {
     document.documentElement.lang = lang

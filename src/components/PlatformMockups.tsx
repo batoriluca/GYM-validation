@@ -1,7 +1,18 @@
-import { type ReactNode } from 'react'
+import { createContext, useContext, type ReactNode } from 'react'
 import Image from 'next/image'
-import styles from './PlatformMockups.module.css'
+import darkStyles from './PlatformMockups.module.css'
+import landingStyles from './PlatformMockups.landing.module.css'
+
+// The landing page renders these mockups in its own system; the social
+// render routes (/carousel) keep the original dark styling. Both stylesheets
+// share the same class names.
+export const MockupThemeContext = createContext<'dark' | 'landing'>('dark')
+
+function useMockupStyles() {
+  return useContext(MockupThemeContext) === 'landing' ? landingStyles : darkStyles
+}
 import { useLanguage } from '@/i18n/LanguageContext'
+import { CREATORS } from '@/data/sampleCreators'
 
 function Icon({ children }: { children: ReactNode }) {
   return (
@@ -42,6 +53,7 @@ export const FEATURE_ICONS = [
 ]
 
 function MockupFrame({ title, tint, children }: { title: string; tint?: 'purple' | 'gold'; children: ReactNode }) {
+  const styles = useMockupStyles()
   return (
     <div className={styles.frame}>
       <div className={styles.frameBar}>
@@ -56,6 +68,7 @@ function MockupFrame({ title, tint, children }: { title: string; tint?: 'purple'
 }
 
 export function StudioBookingCard() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const m = t.mockups.studio
   return (
@@ -78,6 +91,7 @@ export function StudioBookingCard() {
 }
 
 export function StudioMapMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   return (
     <MockupFrame title={t.mockups.frames.studios}>
@@ -96,6 +110,7 @@ export function StudioMapMockup() {
 }
 
 export function ManagementMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const m = t.mockups.management
   const active = 12
@@ -132,6 +147,7 @@ export function ManagementMockup() {
 }
 
 export function LibraryMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const tracks = t.mockups.library.tracks
   const progressValues = [72, 45, 90]
@@ -154,16 +170,16 @@ export function LibraryMockup() {
   )
 }
 
-const LEADERBOARD_RANK_STYLES = [styles.leaderboardRankGold, styles.leaderboardRankSilver, styles.leaderboardRankBronze]
-
 export function ChartsMockup() {
+  const styles = useMockupStyles()
+  const LEADERBOARD_RANK_STYLES = [styles.leaderboardRankGold, styles.leaderboardRankSilver, styles.leaderboardRankBronze]
   const { t } = useLanguage()
   const m = t.mockups.charts
   const leaderboard = [
-    { rank: 1, name: 'GYM_user1' },
-    { rank: 2, name: 'GYM_user3' },
-    { rank: 3, name: 'GYM_user2' },
-    { rank: 4, name: 'GYM_user5' },
+    { rank: 1, name: CREATORS.tavi.handle },
+    { rank: 2, name: CREATORS.sora.handle },
+    { rank: 3, name: CREATORS.dorin.handle },
+    { rank: 4, name: CREATORS.nyx.handle },
   ]
   return (
     <MockupFrame title={t.mockups.frames.leaderboard} tint="gold">
@@ -190,6 +206,7 @@ export function ChartsMockup() {
 }
 
 export function PostCreationMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const m = t.mockups.post
   const icons = [<IconImage key="i" />, <IconVideo key="v" />, <IconText key="t" />]
@@ -212,6 +229,7 @@ export function PostCreationMockup() {
 }
 
 export function WalletMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const m = t.mockups.wallet
   return (
@@ -247,6 +265,7 @@ export function WalletMockup() {
 }
 
 export function ContractMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const m = t.mockups.contract
   return (
@@ -275,6 +294,7 @@ export function ContractMockup() {
 }
 
 export function LyricsMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const m = t.mockups.lyrics
   return (
@@ -299,6 +319,7 @@ export function LyricsMockup() {
 }
 
 export function MarketplaceMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const items = t.mockups.marketplace.items
   return (
@@ -319,6 +340,7 @@ export function MarketplaceMockup() {
 }
 
 export function MessagingMockup() {
+  const styles = useMockupStyles()
   const { t } = useLanguage()
   const m = t.mockups.messaging
   return (

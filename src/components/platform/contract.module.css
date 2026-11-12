@@ -1,0 +1,175 @@
+/* Contract progress and price (from the app's contract page), in the
+   landing system: a hairline step track (done and current steps in brand
+   purple) over a flat panel with a white total. */
+
+.track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 18px 22px;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  text-align: center;
+}
+
+/* Connector to the previous step. */
+.step + .step::before {
+  content: '';
+  position: absolute;
+  top: 13px;
+  right: calc(50% + 18px);
+  left: calc(-50% + 18px);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line-strong);
+}
+
+.step[data-state='done'] + .step::before {
+  background: var(--brand);
+}
+
+.step_dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--bg);
+  color: #ffffff;
+}
+
+.step_dot svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 3;
+}
+
+.step[data-state='done'] .step_dot {
+  border-color: var(--brand);
+  background: var(--brand);
+}
+
+.step[data-state='current'] .step_dot {
+  border-color: var(--brand);
+  background: var(--brand-wash);
+}
+
+.step[data-state='current'] .step_dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-ink);
+}
+
+.step_label {
+  color: var(--fg-3);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.step[data-state='done'] .step_label {
+  color: var(--fg-2);
+}
+
+.step[data-state='current'] .step_label {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.panel {
+  position: relative;
+  min-width: 0;
+  padding: 22px 24px 24px;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+}
+
+.ledger {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.ledger_row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.ledger_row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.ledger_row dt {
+  flex: none;
+  color: var(--fg-2);
+  font-size: 14px;
+}
+
+.ledger_row dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--fg);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 6px;
+  padding: 14px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--piece-radius-sm);
+  background: var(--piece-inset);
+}
+
+.total span {
+  color: var(--fg-2);
+  font-size: 14px;
+}
+
+.total strong {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.total small {
+  margin-left: 6px;
+  color: var(--fg-3);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+}

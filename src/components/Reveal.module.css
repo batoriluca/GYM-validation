@@ -1,16 +1,17 @@
+/* Content is always visible; sections only settle the last few pixels into
+   place as they enter, so nothing is ever hidden waiting on an observer. */
 .reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(14px);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .visible {
-  opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal {
+    transform: none;
     transition: none;
   }
 }

@@ -1,0 +1,97 @@
+/* Marketplace product card (from the app's shop ProductCard), in the landing
+   system: flat panel, hairline media frame, white price. */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  overflow: hidden;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+}
+
+.media {
+  position: relative;
+  flex: none;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--piece-radius-sm);
+  background: var(--piece-inset);
+}
+
+.img_main {
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 8px 6px;
+}
+
+.title {
+  display: -webkit-box;
+  min-height: 2.6em;
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--fg);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  overflow-wrap: anywhere;
+}
+
+.title_link {
+  color: inherit;
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.price {
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.price small {
+  color: var(--fg-3);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Same raised glass as the site's primary buttons. */
+.go {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--piece-radius-sm);
+  color: #ffffff;
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+}
+
+.go svg {
+  width: 18px;
+  height: 18px;
+}

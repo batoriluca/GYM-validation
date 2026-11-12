@@ -1,59 +1,19 @@
 'use client'
 
+import { Fragment } from 'react'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
-import styles from './page.module.css'
+import styles from './home.module.css'
 import PreregisterForm from '@/components/PreregisterForm'
 import Reveal from '@/components/Reveal'
 import Transport from '@/components/Transport'
 import Arrangement from '@/components/Arrangement'
-import BentoBackdrop from '@/components/BentoBackdrop'
-import FounderBenefit from '@/components/FounderBenefit'
 import { track } from '@vercel/analytics'
 import { useLanguage } from '@/i18n/LanguageContext'
-import { IconArrowRight, IconUser, IconInstagram, IconYoutube, IconTiktok, IconMail } from '@/components/Icons'
-import {
-  MarketplaceMockup,
-  MessagingMockup,
-  StudioMapMockup,
-  ManagementMockup,
-  LibraryMockup,
-  ChartsMockup,
-  LyricsMockup,
-  PostCreationMockup,
-  WalletMockup,
-  ContractMockup,
-  FEATURE_ICONS,
-} from '@/components/PlatformMockups'
-
-const FEATURE_VISUALS = [
-  { visual: <MarketplaceMockup /> },
-  { visual: <MessagingMockup /> },
-  { visual: <StudioMapMockup /> },
-  { visual: <ManagementMockup /> },
-  { visual: <LibraryMockup /> },
-  { visual: <ChartsMockup /> },
-  { visual: <PostCreationMockup /> },
-  { visual: <LyricsMockup /> },
-  { visual: <WalletMockup /> },
-  { visual: <ContractMockup /> },
-]
-
-const SHOWCASE_INDEXES = [0, 1, 2, 3]
-const GRID_INDEXES = [4, 5, 6, 7, 8, 9]
-
-// Seven full-width ticking rows, each with its own duration/direction
-// applied inline so every row's timing is explicit rather than relying on
-// CSS :nth-child position.
-const SPHERE_ROWS = [
-  { key: 0, duration: 20, reverse: false },
-  { key: 1, duration: 30, reverse: true },
-  { key: 2, duration: 22, reverse: false },
-  { key: 3, duration: 32, reverse: true },
-  { key: 4, duration: 24, reverse: false },
-  { key: 5, duration: 34, reverse: true },
-  { key: 6, duration: 26, reverse: false },
-]
+import { PARTNERS } from '@/data/partners'
+import { IconArrowRight, IconInstagram, IconYoutube, IconTiktok } from '@/components/Icons'
+import { MockupThemeContext } from '@/components/PlatformMockups'
+import FeatureStack from '@/components/FeatureStack'
+import ScrollRail from '@/components/ScrollRail'
 
 const SOCIAL_LINKS = [
   { href: 'https://www.instagram.com/growyourmusic.app/', label: 'Instagram', Icon: IconInstagram },
@@ -61,194 +21,190 @@ const SOCIAL_LINKS = [
   { href: 'https://www.tiktok.com/@growyourmusic.app', label: 'TikTok', Icon: IconTiktok },
 ]
 
+// One run of role pills per row, alternating direction at staggered speeds
+// so neighbouring rows never line up.
+const MARQUEE_ROWS = [
+  { key: 0, duration: 40, reverse: false },
+  { key: 1, duration: 60, reverse: true },
+  { key: 2, duration: 44, reverse: false },
+  { key: 3, duration: 64, reverse: true },
+  { key: 4, duration: 48, reverse: false },
+  { key: 5, duration: 68, reverse: true },
+  { key: 6, duration: 52, reverse: false },
+]
+
 export default function Home() {
   const { t } = useLanguage()
-  const joinStageRef = useRef<HTMLDivElement | null>(null)
-  const [joinStageRevealed, setJoinStageRevealed] = useState(false)
-
-  // The bento backdrop and the join banner share one trigger — the stage
-  // entering view — rather than each observing independently; "backdrop
-  // first, banner after" is then just two transition-delays off that one
-  // boolean (see .joinBannerStage[data-revealed] in page.module.css),
-  // instead of two moments that could drift out of sync with each other.
-  useEffect(() => {
-    const node = joinStageRef.current
-    if (!node) return
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setJoinStageRevealed(true)
-      return
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setJoinStageRevealed(true)
-          observer.unobserve(node)
-        }
-      },
-      { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
-    )
-
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [])
 
   return (
-    <main className={styles.page}>
-      <Transport />
+    <MockupThemeContext.Provider value="landing">
+      <main className={styles.page} data-theme="landing">
+        <Transport />
 
-      <Arrangement />
+        <Arrangement />
 
-      <div className={styles.joinBannerStage} ref={joinStageRef} data-revealed={joinStageRevealed}>
-        <div className={styles.joinBannerBackdrop}>
-          <BentoBackdrop />
-        </div>
-
-        <section className={styles.joinBanner} id="preregister-form">
-          <span className={`${styles.blob} ${styles.blobBanner}`} />
-          <Reveal className={styles.joinBannerInner}>
-            <FounderBenefit />
-
-            <div className={styles.joinBannerForm}>
-              <PreregisterForm />
+        {PARTNERS.length > 0 ? (
+          <section className={styles.partners} aria-labelledby="partners-title">
+            <div className={styles.container}>
+              <h2 id="partners-title" className={styles.partnersTitle}>
+                {t.landing.partnersTitle}
+              </h2>
+              <ul className={styles.partnerList}>
+                {PARTNERS.map((partner) => (
+                  <li key={partner.name} className={styles.partner}>
+                    {partner.logo ? (
+                      <Image src={partner.logo} alt={partner.name} width={140} height={40} className={styles.partnerLogo} />
+                    ) : (
+                      <span className={styles.partnerName}>{partner.name}</span>
+                    )}
+                    <span className={styles.partnerKind}>{partner.kind}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </Reveal>
+          </section>
+        ) : null}
+
+        <section className={styles.join} id="preregister-form" aria-labelledby="join-title">
+          <Image src="/img/el1.png" alt="" aria-hidden="true" width={6750} height={1443} sizes="100vw" className={styles.joinWave} />
+          <div className={`${styles.container} ${styles.joinGrid}`}>
+            <div className={styles.joinCopy}>
+              <h2 id="join-title" className={`${styles.sectionTitle} glass-text`}>
+                {t.landing.joinTitle}
+              </h2>
+              <p className={styles.sectionLead}>{t.landing.joinSubtitle}</p>
+
+              <div className={styles.founder}>
+                <h3 className={`${styles.founderTitle} glass-text`}>{t.landing.founderTitle}</h3>
+                <p className={styles.founderText}>
+                  {t.landing.founderPre} <strong>{t.landing.founderAccent}</strong>
+                  {t.landing.founderPost}
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.formWrap}>
+              <div className={styles.formPanel}>
+                <PreregisterForm />
+              </div>
+            </div>
+          </div>
         </section>
-      </div>
 
-      <section className={styles.section} id="features">
-        <Reveal as="div" className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>{t.features.title}</h2>
-          <p className={styles.sectionSubtitle}>{t.features.subtitle}</p>
-        </Reveal>
-
-        <div className={styles.showcaseList}>
-          {SHOWCASE_INDEXES.map((index, i) => (
-            <Reveal
-              key={index}
-              as="article"
-              className={`${styles.showcaseRow} ${i % 2 === 1 ? styles.showcaseRowReverse : ''}`}
-            >
-              <div className={styles.showcaseVisual}>{FEATURE_VISUALS[index].visual}</div>
-              <div className={styles.showcaseBody}>
-                <span className={styles.featureIconBadge}>{FEATURE_ICONS[index]}</span>
-                <h3 className={styles.showcaseTitle}>{t.features.items[index].title}</h3>
-                <p className={styles.showcaseText}>{t.features.items[index].text}</p>
-              </div>
+        <section className={`${styles.section} ${styles.features}`} id="features" aria-labelledby="features-title">
+          <ScrollRail className={styles.featuresRail} startAfter="#features-header" />
+          <div className={`${styles.container} ${styles.featuresInner}`}>
+            <Reveal as="div" id="features-header" className={styles.sectionHeader}>
+              <h2 id="features-title" className={`${styles.sectionTitle} glass-text`}>
+                {t.landing.featuresTitle}
+              </h2>
+              <p className={styles.sectionLead}>{t.landing.featuresSubtitle}</p>
             </Reveal>
-          ))}
-        </div>
 
-        <div className={styles.benefitGrid}>
-          {GRID_INDEXES.map((index, i) => (
-            <Reveal key={index} as="article" className={styles.benefitCard} delay={(i % 3) * 90}>
-              <span className={styles.featureIconBadge}>{FEATURE_ICONS[index]}</span>
-              <h3 className={styles.benefitTitle}>{t.features.items[index].title}</h3>
-              <p className={styles.benefitText}>{t.features.items[index].text}</p>
-              <div className={styles.benefitVisual}>{FEATURE_VISUALS[index].visual}</div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+            <FeatureStack />
+          </div>
+        </section>
 
-      <section className={styles.section} id="audience">
-        <div className={styles.audienceLayout}>
-          {/* Decorative only — the same roles are already exposed to
-              screen readers via the audience tags list itself being read
-              once per marquee's own duplicated content is redundant, so
-              this stack of rows is hidden from the a11y tree rather than
-              read out five times over. The header box floats above the
-              stack (absolutely positioned, centered) so the marquees run
-              underneath it rather than being split around it. */}
-          <div className={styles.audienceSphere} aria-hidden="true">
-            {SPHERE_ROWS.map((row) => (
-              <div key={row.key} className={styles.marquee}>
-                <div
-                  className={styles.marqueeTrack}
-                  style={{ animationDuration: `${row.duration}s`, animationDirection: row.reverse ? 'reverse' : 'normal' }}
-                >
-                  {[...t.audience.tags, ...t.audience.tags].map((role, i) => (
-                    <span key={`${role}-${i}`} className={styles.marqueeItem}>
-                      <IconUser className={styles.marqueeIcon} />
-                      {role}
-                    </span>
-                  ))}
+        <section className={`${styles.section} ${styles.audience}`} id="audience" aria-labelledby="audience-title">
+          <div className={styles.audienceLayout}>
+            {/* Decorative: the roles scroll in alternating rows underneath a
+                floating header box. Hidden from assistive tech (the same list
+                would otherwise be read once per row, twice per row); the list
+                below the title carries the roles for screen readers. */}
+            <div className={styles.audienceSphere} aria-hidden="true">
+              {MARQUEE_ROWS.map((row) => (
+                <div key={row.key} className={styles.marquee}>
+                  <div
+                    className={styles.marqueeTrack}
+                    style={{ animationDuration: `${row.duration}s`, animationDirection: row.reverse ? 'reverse' : 'normal' }}
+                  >
+                    {[...t.audience.tags, ...t.audience.tags].map((role, i) => (
+                      <Fragment key={`${role}-${i}`}>
+                        <span className={`${styles.marqueeItem} ${i % 3 === 1 ? styles.marqueeItemTint : ''}`}>
+                          {role}
+                        </span>
+                        <span className={styles.marqueeLogo} />
+                      </Fragment>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className={styles.audienceHeaderBox}>
-            <Reveal as="div" className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>{t.audience.title}</h2>
-              <p className={styles.sectionSubtitle}>{t.audience.subtitle}</p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.ctaBand}>
-        <Image
-          src="/img/el1.png"
-          alt=""
-          aria-hidden="true"
-          width={6750}
-          height={1443}
-          className={styles.ctaBandEl1}
-        />
-        <Reveal as="div" className={styles.ctaBandInner}>
-          <h2 className={styles.ctaTitle}>{t.cta.title}</h2>
-          <p className={styles.ctaSubtitle}>{t.cta.subtitle}</p>
-          <a
-            className={styles.ctaButton}
-            href="#preregister-form"
-            onClick={() => track('cta_click', { location: 'cta_band' })}
-          >
-            {t.cta.button}
-            <IconArrowRight className={styles.ctaButtonIcon} />
-          </a>
-        </Reveal>
-      </section>
-
-      <footer className={styles.footer} id="contact">
-        <div className={styles.footerGrid}>
-          <div className={styles.footerBrand}>
-            <div className={styles.footerLogoRow}>
-              <Image src="/logo.png" alt="GrowYourMusic" width={28} height={28} className={styles.logoImg} />
-              <span className={styles.logoText}>GrowYourMusic</span>
-            </div>
-            <p className={styles.footerBlurb}>{t.hero.subtitle}</p>
-            <div className={styles.footerSocial}>
-              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}>
-                  <Icon />
-                </a>
               ))}
             </div>
-          </div>
 
-          <div className={styles.footerNavCol}>
-            <a href="#top">{t.nav.home}</a>
-            <a href="#features">{t.nav.features}</a>
-            <a href="#audience">{t.nav.audience}</a>
-            <a href="#preregister-form" onClick={() => track('cta_click', { location: 'footer_nav' })}>
-              {t.nav.register}
+            <div className={styles.audienceHeaderBox}>
+              <Reveal as="div" className={styles.audienceHeader}>
+                <h2 id="audience-title" className={`${styles.audienceTitle} glass-text`}>
+                  {t.landing.audienceTitle}
+                </h2>
+                <p className={styles.audienceLead}>{t.landing.audienceSubtitle}</p>
+                <ul className="sr-only" aria-label={t.landing.roleListLabel}>
+                  {t.audience.tags.map((role) => (
+                    <li key={role}>{role}</li>
+                  ))}
+                </ul>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.ctaBand} aria-labelledby="cta-title">
+          <Image src="/img/el1.png" alt="" aria-hidden="true" width={6750} height={1443} sizes="200vw" className={styles.ctaWave} />
+          <div className={`${styles.container} ${styles.ctaInner}`}>
+            <div>
+              <h2 id="cta-title" className={`${styles.ctaTitle} glass-text`}>
+                {t.hero.titleCreate} {t.hero.titleCollaborate}{' '}
+                <span className="glass-text-blue">{t.hero.titleGetPaid}</span>
+              </h2>
+              <p className={styles.ctaSubtitle}>{t.landing.ctaSubtitle}</p>
+            </div>
+            <a
+              className={styles.ctaButton}
+              href="#preregister-form"
+              onClick={() => track('cta_click', { location: 'cta_band' })}
+            >
+              {t.cta.button}
+              <IconArrowRight className={styles.ctaButtonIcon} />
             </a>
           </div>
+        </section>
 
-          <div className={styles.footerContactCol}>
-            <a href="mailto:contact@growyourmusic.app">
-              <IconMail className={styles.footerLinkIcon} />
-              contact@growyourmusic.app
-            </a>
+        <footer className={styles.footer} id="contact">
+          <div className={`${styles.container} ${styles.footerGrid}`}>
+            <div className={styles.footerBrand}>
+              <Image src="/img/gym-logo-glass.png" alt="GrowYourMusic" width={800} height={667} className={styles.footerLogo} />
+              <p className={styles.footerBlurb}>{t.landing.heroSubtitle}</p>
+            </div>
+
+            <nav className={styles.footerCol} aria-label={t.landing.footerProduct}>
+              <span className={styles.footerHeading}>{t.landing.footerProduct}</span>
+              <a href="#features">{t.nav.features}</a>
+              <a href="#audience">{t.nav.audience}</a>
+              <a href="#preregister-form" onClick={() => track('cta_click', { location: 'footer_nav' })}>
+                {t.nav.register}
+              </a>
+            </nav>
+
+            <div className={styles.footerCol}>
+              <span className={styles.footerHeading}>{t.landing.footerContact}</span>
+              <a href="mailto:contact@growyourmusic.app">contact@growyourmusic.app</a>
+              <div className={styles.footerSocial}>
+                {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                  <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}>
+                    <Icon />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className={styles.footerBottom}>
-          <p className={styles.footerText}>{t.footer.copyright}</p>
-        </div>
-      </footer>
-    </main>
+          <div className={`${styles.container} ${styles.footerBottom}`}>
+            <div className={styles.footerBottomInner}>
+              <p>{t.footer.copyright}</p>
+              <a href="/privacy">{t.landing.privacyLink}</a>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </MockupThemeContext.Provider>
   )
 }

@@ -1,0 +1,240 @@
+/* Library: a single, an EP and an album side by side. The platform's shelf
+   rule: a single is one flat cover, an EP stacks one sleeve behind it, an
+   album two. All three use the product cover (IMGcover-violet.jpg). Under
+   each: type pill, title, track count and progress from demo to release
+   (brand bar; a released project gets a white check). */
+
+.shelf {
+  min-width: 0;
+  padding: 14px 20px 16px;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.head h2 {
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.count {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--fg-2);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Cover plus sleeves: every cover is the same size; sleeves peek out to the
+   right and up into the reserved 20px, so the stack reads as more records. */
+.stack {
+  position: relative;
+  display: block;
+  width: 128px;
+  max-width: calc(100% - 20px);
+  aspect-ratio: 1;
+  margin-top: 20px;
+}
+
+.cover,
+.sleeve {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+}
+
+.cover {
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 14px 24px -12px rgba(4, 3, 12, 0.85);
+}
+
+/* Sleeves: the same violet glass as the tiles, stepping back and fading. */
+.sleeve {
+  background: linear-gradient(170deg, #4b3880 0%, #2c2052 60%, #1d1538 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.sleeve[data-depth='1'] {
+  transform: translate(10px, -8px);
+  opacity: 0.85;
+}
+
+.sleeve[data-depth='2'] {
+  transform: translate(20px, -16px);
+  opacity: 0.55;
+}
+
+.kind {
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 3px 9px;
+  border: 1px solid rgba(214, 204, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.title {
+  margin-top: 6px;
+  overflow: hidden;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  margin-top: 2px;
+  color: var(--fg-3);
+  font-size: 12px;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.bar {
+  display: block;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--brand), #a99dff);
+}
+
+.status[data-done='true'] .bar span {
+  background: linear-gradient(90deg, #a99dff, #ffffff);
+}
+
+.status small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--fg-2);
+  font-size: 11.5px;
+}
+
+.status[data-done='true'] small {
+  color: #ffffff;
+}
+
+.status small svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Phone layout (piece is 286px wide, shown near 1:1): the three releases
+   become rows (cover left; type and track count, title, progress right). */
+@media (max-width: 640px) {
+  .shelf {
+    padding: 14px 14px 16px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-top: 6px;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    column-gap: 18px;
+    align-items: center;
+  }
+
+  .stack {
+    grid-row: 1 / span 3;
+    width: 56px;
+    max-width: none;
+    margin-top: 10px;
+  }
+
+  .sleeve[data-depth='1'] {
+    transform: translate(5px, -5px);
+  }
+
+  .sleeve[data-depth='2'] {
+    transform: translate(10px, -10px);
+  }
+
+  .kind {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    margin-top: 0;
+  }
+
+  .meta {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-top: 0;
+  }
+
+  .title {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 4px;
+  }
+
+  .status {
+    grid-column: 2;
+    grid-row: 3;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .bar {
+    flex: 1;
+  }
+
+  .status small {
+    white-space: nowrap;
+  }
+}

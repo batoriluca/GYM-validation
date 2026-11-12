@@ -1,0 +1,354 @@
+/* Leaderboard: an Artists/Producers switch (separate rankings), a podium of
+   raised violet glass blocks (the glyph-tile recipe) with gradient numerals,
+   and the visitor's own climb with progress to the next place. No names or
+   avatars, no yellow: #1 is marked by height, a glowing white crown and the
+   prize pill. */
+
+.hero {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 14px 18px 16px;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+}
+
+/* ---- Head: ranking switch + prize ---- */
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid rgba(214, 204, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(11, 10, 20, 0.45);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.seg span {
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: var(--fg-3);
+}
+
+.seg span[data-active='true'] {
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  color: #ffffff;
+}
+
+.prize {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid rgba(214, 204, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.prize svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ---- Podium ---- */
+
+.podium {
+  display: grid;
+  grid-template-columns: 1fr 1.12fr 1fr;
+  align-items: end;
+  gap: 12px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  text-align: center;
+}
+
+.score {
+  color: var(--fg-3);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.score b {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.step[data-place='1'] .score b {
+  font-size: 26px;
+}
+
+.note {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 2px;
+  color: var(--fg-3);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.note svg {
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+
+.note[data-up='true'] svg {
+  color: var(--ok);
+}
+
+/* A raised glass block: the same violet tile as the hero and feature icons,
+   squared off at the bottom so the three stand on one floor. */
+.block {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 14px 14px 4px 4px;
+  background:
+    radial-gradient(120% 70% at 30% 0%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(170deg, #4b3880 0%, #2c2052 55%, #1d1538 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 18px 28px -16px rgba(8, 4, 20, 0.9);
+}
+
+.step[data-place='1'] .block {
+  height: 96px;
+  margin-top: 24px;
+  background:
+    radial-gradient(120% 70% at 30% 0%, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(80% 60% at 50% 100%, rgba(169, 159, 245, 0.28), transparent 70%),
+    linear-gradient(170deg, #5a44a0 0%, #34266a 55%, #211843 100%);
+}
+
+.step[data-place='2'] .block {
+  height: 70px;
+}
+
+.step[data-place='3'] .block {
+  height: 54px;
+}
+
+.num {
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #ffffff 0%, #e4e0ff 55%, #a99dff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 3px 6px rgba(10, 4, 30, 0.55));
+}
+
+.step[data-place='1'] .num {
+  font-size: 50px;
+}
+
+.crown {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: linear-gradient(170deg, #5a44a0, #2c2052);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 16px rgba(201, 191, 255, 0.45);
+  color: #ffffff;
+  transform: translateX(-50%);
+}
+
+.crown svg {
+  width: 17px;
+  height: 17px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+}
+
+/* ---- Your position ---- */
+
+.me {
+  display: grid;
+  grid-template-columns: auto 1fr minmax(0, 170px);
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border: 1px solid rgba(214, 204, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(11, 10, 20, 0.4);
+}
+
+.me_rank {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 9px;
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.me_text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.me_text strong {
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.me_text small {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--ok);
+  font-size: 11.5px;
+}
+
+.me_text small svg {
+  width: 12px;
+  height: 12px;
+}
+
+.me_progress {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.me_progress small {
+  color: var(--fg-3);
+  font-size: 11px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.bar {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--brand), #a99dff);
+}
+
+/* Phone layout (piece is 286px wide, shown near 1:1): a narrower podium
+   without the gap notes (the "Your position" row tells the climb), and the
+   progress bar under the position text. */
+@media (max-width: 640px) {
+  .hero {
+    padding: 12px 12px 14px;
+  }
+
+  .seg span {
+    padding: 5px 10px;
+  }
+
+  .podium {
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .note {
+    display: none;
+  }
+
+  .score {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .score b {
+    font-size: 17px;
+  }
+
+  .step[data-place='1'] .score b {
+    font-size: 21px;
+  }
+
+  .block {
+    margin-top: 6px;
+  }
+
+  .step[data-place='1'] .block {
+    height: 78px;
+    margin-top: 20px;
+  }
+
+  .step[data-place='2'] .block {
+    height: 58px;
+  }
+
+  .step[data-place='3'] .block {
+    height: 44px;
+  }
+
+  .num {
+    font-size: 30px;
+  }
+
+  .step[data-place='1'] .num {
+    font-size: 40px;
+  }
+
+  .me {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 8px;
+  }
+
+  .me_progress {
+    grid-column: 1 / -1;
+  }
+
+  .me_progress small {
+    text-align: left;
+  }
+}

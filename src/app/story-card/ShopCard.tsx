@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Ground, { Glyph } from './Ground'
 import styles from './card.module.css'
+import { CREATORS } from '@/data/sampleCreators'
 
 // One shop product card (web_frontend src/app/shop/page.tsx ProductCard) in
 // the story's frosted-glass language, filled with mock data: media with
@@ -11,8 +12,8 @@ import styles from './card.module.css'
 const PRODUCT = {
   title: 'L$D: copertă de album, ilustrație originală',
   category: 'Visual/Artwork',
-  seller: 'Kosmo Visuals',
-  initials: 'KV',
+  seller: CREATORS.opal.name,
+  initials: 'OF',
   price: '350',
   image: '/story-card/mock-cover.jpg',
 }

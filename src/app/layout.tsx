@@ -21,6 +21,7 @@ export default function RootLayout({
       <body>
         <div
           aria-hidden="true"
+          className="grain-overlay"
           style={{
             position: 'fixed',
             top: 0,

@@ -1,0 +1,19 @@
+/* Lyrics viewer (from the app's LyricsEditor), in the landing system. */
+
+.viewer {
+  max-width: 62ch;
+  color: var(--fg);
+}
+
+.viewer p {
+  margin: 0 0 1.4em;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.viewer p:last-child {
+  margin-bottom: 0;
+}

@@ -25,6 +25,7 @@ import ShopProductCard from './ShopProductCard'
 import logo from './_assets/logo.png'
 import styles from './carousel.module.css'
 import extras from './extras.module.css'
+import { CREATORS } from '@/data/sampleCreators'
 
 // ---------- cards ----------
 
@@ -84,8 +85,8 @@ function Mounted({ card }: { card: Card }) {
 }
 
 // Shop-grid product cards for slide 2 (blank media, no site images).
-const ProductBeats = () => <ShopProductCard title="Pack di beat hip-hop" category="beats" label="Beats" seller="GYM_user1" price="45" />
-const ProductMix = () => <ShopProductCard title="Mix & Master completo" category="mixmas" label="Mix Master" seller="GYM_user4" price="120" />
+const ProductBeats = () => <ShopProductCard title="Pack di beat hip-hop" category="beats" label="Beats" seller={CREATORS.nyx.handle} price="45" />
+const ProductMix = () => <ShopProductCard title="Mix & Master completo" category="mixmas" label="Mix Master" seller={CREATORS.dorin.handle} price="120" />
 
 // ---------- 3D pins ----------
 

@@ -1,0 +1,611 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: clamp(80px, 10vw, 136px) 0;
+}
+
+.sectionHeader {
+  max-width: 44rem;
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: clamp(32px, 3.8vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.035em !important;
+  text-wrap: balance;
+}
+
+.sectionLead {
+  margin: 16px 0 0;
+  max-width: 36rem;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+/* ---- Partners (renders only when src/data/partners.ts has entries) ---- */
+
+.partners {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.partnersTitle {
+  margin: 0 0 20px;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  color: var(--fg-3);
+}
+
+.partnerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+}
+
+.partner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.partnerLogo {
+  height: 28px;
+  width: auto;
+  filter: grayscale(1);
+}
+
+.partnerName {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.partnerKind {
+  font-size: 13px;
+  color: var(--fg-3);
+}
+
+/* ---- Join / preregister ---- */
+
+.join {
+  position: relative;
+  overflow-x: clip;
+  /* Extra room on top for the lower half of the hero's icon row, which
+     hangs across the seam into this section. */
+  padding: clamp(124px, 14vw, 184px) 0 clamp(80px, 10vw, 128px);
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.joinGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+
+.founder {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-strong);
+  max-width: 30rem;
+}
+
+.founderTitle {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.015em !important;
+}
+
+.founderText {
+  margin: 10px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+.founderText strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+/* cerc.png ribbon loop wrapped around the signup panel: oversized and
+   static. It is never cropped: the section only clips sideways, and the
+   ribbon sits above the neighbouring sections' grounds and the features
+   content (z-index 3) so its loops run over the seams, but under the hero's
+   icon row (5) and the form panel (4). */
+.formWrap {
+  position: relative;
+}
+
+.joinRibbon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: 135%;
+  max-width: none;
+  height: auto;
+  translate: -38% -40%;
+  rotate: -12deg;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Copy column sits above the ribbon so it never runs through the text. */
+.joinCopy {
+  position: relative;
+  z-index: 4;
+}
+
+/* Trial: el1.png (the CTA wave) in place of cerc.png, 120% of the section
+   width (centred, edges cropped) at full opacity. Above the section ground and the
+   neighbouring sections (z 3), under the copy and form panel (4) and the
+   hero icon row (5). */
+.joinWave {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: 120%;
+  max-width: none;
+  height: auto;
+  translate: -50% -38%;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.formPanel {
+  position: relative;
+  z-index: 4;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-panel);
+  box-shadow: var(--shadow-panel);
+  padding: clamp(24px, 3vw, 36px);
+}
+
+/* ---- Features ----
+   A scroll line (ScrollRail) runs under the whole section, sweeping from the
+   left of the cards to the right and back around the page centre. */
+
+.features {
+  position: relative;
+}
+
+.features .featuresInner {
+  position: relative;
+  z-index: 1;
+  /* Let the pointer fall through empty space to the line underneath; the
+     heading text and the cards (FeatureStack .card) take it back. */
+  pointer-events: none;
+}
+
+.features .featuresInner .sectionHeader > * {
+  pointer-events: auto;
+}
+
+.features .featuresRail {
+  --rail-center: 50%;
+}
+
+/* ---- Audience ----
+   Alternating marquee rows of role pills, with the header box floating
+   centred on top (absolute, out of flow) so the rows run underneath it.
+   The box has a hairline edge with a spark running round it, like the hero capsule. */
+
+.audience {
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.audienceLayout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.audienceHeaderBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: min(640px, calc(100% - 32px));
+  padding: clamp(28px, 4vw, 40px) clamp(22px, 4vw, 40px);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--line-strong);
+  border-radius: 28px;
+  background: radial-gradient(ellipse at center, rgba(11, 10, 20, 0.94) 0%, rgba(11, 10, 20, 0.82) 65%, rgba(18, 15, 34, 0.7) 100%);
+  box-shadow: var(--shadow-panel);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Same spark as the hero's "Early access" capsule (.player::before in
+   Arrangement.module.css): a conic sweep painted only on the border ring
+   (the mask cuts out the content box), rotated by animating --spark. */
+@property --spark {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.audienceHeaderBox::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--spark),
+    transparent 0deg,
+    transparent 220deg,
+    rgba(169, 159, 245, 0.4) 290deg,
+    var(--brand-ink) 330deg,
+    #ffffff 354deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+  animation: spark 4s linear infinite;
+}
+
+@keyframes spark {
+  to {
+    --spark: 360deg;
+  }
+}
+
+.audienceHeader {
+  text-align: center;
+}
+
+.audienceTitle {
+  margin: 0;
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.035em !important;
+  text-wrap: balance;
+}
+
+.audienceLead {
+  margin: 14px auto 0;
+  max-width: 32rem;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+.audienceSphere {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vw, 14px);
+  width: 100%;
+}
+
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 3.5vw, 56px);
+  width: max-content;
+  animation: marqueeScroll 26s linear infinite;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Just the words: large, quiet type so the floating title stays loudest. */
+.marqueeItem {
+  color: var(--fg-3);
+  font-size: clamp(30px, 4.4vw, 60px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+
+/* Every third role picks up the brand tint so the rows aren't flat grey. */
+.marqueeItemTint {
+  color: var(--brand-ink);
+  opacity: 0.45;
+}
+
+/* The GrowYourMusic mark between roles, in the same colour as the words:
+   the transparent PNG is used as a mask, so the logo's shape is filled
+   with the role colour and its own white/violet is dropped. */
+.marqueeLogo {
+  flex-shrink: 0;
+  height: clamp(18px, 2.6vw, 36px);
+  aspect-ratio: 3024 / 2433;
+  background-color: var(--fg-3);
+  opacity: 0.55;
+  -webkit-mask: url('/img/gym-logo-mark.png') center / contain no-repeat;
+  mask: url('/img/gym-logo-mark.png') center / contain no-repeat;
+}
+
+@media (max-width: 640px) {
+  .audienceLead {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audienceHeaderBox::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .marqueeTrack {
+    animation: none;
+  }
+}
+
+/* ---- Closing band ---- */
+
+.ctaBand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--fg);
+  padding: clamp(72px, 9vw, 120px) 0;
+}
+
+/* el1.png wave line-art in its own purple/blue strokes, oversized and
+   cropped by the band, at full opacity behind the headline. */
+.ctaWave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 190%;
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .ctaWave {
+    width: 420%;
+  }
+}
+
+.ctaInner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.ctaTitle {
+  margin: 0;
+  max-width: 14em;
+  font-size: clamp(36px, 4.6vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.04em !important;
+  color: var(--fg);
+  text-wrap: balance;
+}
+
+
+.ctaSubtitle {
+  margin: 18px 0 0;
+  max-width: 32rem;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+.ctaButton {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 14px;
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  text-shadow: 0 1px 8px rgba(185, 176, 255, 0.45);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaButton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.ctaButtonIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Footer ---- */
+
+.footer {
+  padding: 64px 0 32px;
+  font-size: 14px;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+}
+
+.footerBrand {
+  max-width: 26rem;
+}
+
+.footerLogo {
+  display: block;
+  width: auto;
+  height: 84px;
+}
+
+.footerBlurb {
+  margin: 16px 0 0;
+  line-height: 1.6;
+  color: var(--fg-3);
+}
+
+.footerCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footerHeading {
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+
+.footerCol a {
+  color: var(--fg-2);
+  text-decoration: none;
+}
+
+.footerCol a:hover {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footerSocial {
+  display: flex;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.footerSocial a {
+  display: flex;
+  color: var(--fg-3);
+}
+
+.footerSocial a:hover {
+  color: var(--fg);
+}
+
+.footerSocial svg {
+  width: 20px;
+  height: 20px;
+}
+
+.footerBottom {
+  margin-top: 56px;
+}
+
+.footerBottomInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--fg-3);
+  font-size: 13px;
+}
+
+.footerBottomInner p {
+  margin: 0;
+}
+
+.footerBottomInner a {
+  color: var(--fg-3);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footerBottomInner a:hover {
+  color: var(--fg);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1024px) {
+  .joinGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ctaInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .sectionLead {
+    font-size: 16px;
+  }
+
+  .formPanel {
+    padding: 20px;
+  }
+
+  .footerGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .ctaButton {
+    width: 100%;
+    justify-content: center;
+  }
+}

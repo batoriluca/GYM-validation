@@ -3,13 +3,14 @@
 import Image from 'next/image'
 import Ground, { Glyph } from './Ground'
 import styles from './card.module.css'
+import { CREATORS } from '@/data/sampleCreators'
 
 // One feed post (web_frontend src/components/post.js) in the story's
 // frosted-glass language, filled with mock data: author row with the
 // "Promovat" badge, image, caption, like button and date.
 
 const POST = {
-  author: 'Ilinca Mara',
+  author: CREATORS.ilva.name,
   initials: 'IM',
   promoted: true,
   image: '/story-card/mock-studio.jpg',

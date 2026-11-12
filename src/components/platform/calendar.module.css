@@ -1,0 +1,161 @@
+/* Month calendar (from the app's ManagementCalendar), in the landing system:
+   hairline day cells on the inset ground, the selected day in solid brand
+   purple (a brand moment), small event dots. */
+
+.wrap {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  min-height: 0;
+  color: var(--fg);
+}
+
+.nav {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.navButton {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--piece-radius-sm);
+  color: var(--fg-2);
+}
+
+.navButton svg {
+  width: 17px;
+  height: 17px;
+}
+
+.navJump {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Same field as the site's inputs and selects. */
+.navJump select {
+  min-width: 0;
+  height: 34px;
+  padding: 0 30px 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--piece-radius-sm);
+  background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238a83ab' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 11px center;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.weekdays {
+  display: grid;
+  flex-shrink: 0;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.weekday {
+  padding: 2px 0;
+  color: var(--fg-3);
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, minmax(0, 52px));
+  gap: 4px;
+}
+
+.dayCell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--piece-inset);
+  color: var(--fg);
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.dayCell.otherMonth {
+  border-color: transparent;
+  background: transparent;
+  color: var(--line-strong);
+}
+
+.dayCell.selected {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.dayNumber {
+  line-height: 1;
+}
+
+.dots {
+  display: flex;
+  flex-shrink: 0;
+  gap: 3px;
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.dayCell.selected .dot {
+  background: #ffffff !important;
+}
+
+.foot {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--fg-2);
+  font-size: 12.5px;
+}
+
+.summary svg {
+  width: 13px;
+  height: 13px;
+  color: var(--brand-ink);
+}

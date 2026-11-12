@@ -1,0 +1,23 @@
+/* Small secondary button (the lyrics Edit), in the landing system: the
+   site's clear glass, like the quiz Back button. */
+
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--piece-radius-sm);
+  background: var(--glass-fill-clear);
+  box-shadow: var(--glass-shadow-clear);
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ghost svg {
+  width: 16px;
+  height: 16px;
+}

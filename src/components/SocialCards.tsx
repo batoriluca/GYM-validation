@@ -3,6 +3,7 @@
 import { type ReactNode } from 'react'
 import styles from './SocialCards.module.css'
 import { useLanguage } from '@/i18n/LanguageContext'
+import { CREATORS } from '@/data/sampleCreators'
 
 // Full cards lifted from the "Social media" Instagram-carousel decks —
 // same section header, same copy, same numbers, just scaled down from a
@@ -49,11 +50,11 @@ export function WalletBalanceCard() {
 
 // leaderboard/04-podium.html — section "03", "Rankings update live"
 const PODIUM_ROWS = [
-  { rank: 1, name: 'GYM_user12' },
-  { rank: 2, name: 'GYM_user236' },
-  { rank: 3, name: 'GYM_user31' },
-  { rank: 4, name: 'GYM_user453' },
-  { rank: 5, name: 'GYM_user89' },
+  { rank: 1, name: CREATORS.tavi.handle },
+  { rank: 2, name: CREATORS.sora.handle },
+  { rank: 3, name: CREATORS.dorin.handle },
+  { rank: 4, name: CREATORS.nyx.handle },
+  { rank: 5, name: CREATORS.ilva.handle },
 ]
 
 export function LeaderboardPodiumCard() {
@@ -83,9 +84,9 @@ export function LeaderboardPodiumCard() {
 // value; this extends that same numbered sequence (sell=01, detail=02,
 // feature=03) with the review list that number never got in the source.
 const REVIEWS = [
-  { name: 'GYM_user7', stars: 5, text: 'Fast delivery, exactly what I needed for the hook.' },
-  { name: 'GYM_user22', stars: 5, text: 'Clean mix, worth every credit.' },
-  { name: 'GYM_user15', stars: 4, text: 'Great quality, quick to respond too.' },
+  { name: CREATORS.ilva.handle, stars: 5, text: 'Fast delivery, exactly what I needed for the hook.' },
+  { name: CREATORS.tavi.handle, stars: 5, text: 'Clean mix, worth every credit.' },
+  { name: CREATORS.opal.handle, stars: 4, text: 'Great quality, quick to respond too.' },
 ]
 
 export function MarketplaceReviewsCard() {
@@ -132,8 +133,8 @@ export function VaultLyricsCard() {
 // category chips, and both product cards (no numbered section header —
 // this slide never had one in the source deck).
 const SHOP_PRODUCTS = [
-  { variant: 'beat' as const, cover: 'Beat', seller: 'GYM_user1' },
-  { variant: 'mix' as const, cover: 'Mix & Master', seller: 'GYM_user4' },
+  { variant: 'beat' as const, cover: 'Beat', seller: CREATORS.nyx.handle },
+  { variant: 'mix' as const, cover: 'Mix & Master', seller: CREATORS.dorin.handle },
 ]
 
 export function MarketplaceShopCard() {
@@ -222,7 +223,7 @@ export function MarketplaceFeatureCard() {
         <div className={styles.featureProfile}>
           <span className={styles.featureAvatar} />
           <div>
-            <p className={styles.featureName}>GYM_user234</p>
+            <p className={styles.featureName}>{CREATORS.sora.handle}</p>
             <p className={styles.featureRole}>Artist</p>
           </div>
         </div>

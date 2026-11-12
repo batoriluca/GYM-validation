@@ -25,9 +25,10 @@ export default function PreregisterForm({ id }: { id?: string }) {
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('')
   const [city, setCity] = useState('')
+  const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState<Status>('idle')
   const [stage, setStage] = useState<Stage>('form')
-  const [fieldErrors, setFieldErrors] = useState<{ email?: string; role?: string }>({})
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; role?: string; consent?: string }>({})
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function PreregisterForm({ id }: { id?: string }) {
   }, [status])
 
   const validate = () => {
-    const errors: { email?: string; role?: string } = {}
+    const errors: { email?: string; role?: string; consent?: string } = {}
     if (!email.trim()) {
       errors.email = t.form.errorEmailRequired
     } else if (!EMAIL_REGEX.test(email.trim())) {
@@ -50,6 +51,9 @@ export default function PreregisterForm({ id }: { id?: string }) {
     }
     if (!role) {
       errors.role = t.form.errorRoleRequired
+    }
+    if (!consent) {
+      errors.consent = t.form.errorConsentRequired
     }
     setFieldErrors(errors)
     return Object.keys(errors).length === 0
@@ -67,6 +71,9 @@ export default function PreregisterForm({ id }: { id?: string }) {
       role,
       city: city.trim() || null,
       source: getSource(),
+      // Always true here (validate() blocks submission without it); stored so
+      // each signup has its own consent record. consent_at is set by the DB.
+      consent_launch_email: consent,
     }
 
     try {
@@ -102,7 +109,7 @@ export default function PreregisterForm({ id }: { id?: string }) {
     return (
       <div id={id} className={styles.card}>
         <div className={styles.successBadge}>{t.form.successBadge}</div>
-        <h3 className={styles.successTitle}>{t.form.successTitle}</h3>
+        <h3 className={`${styles.successTitle} glass-text`}>{t.form.successTitle}</h3>
         <p className={styles.successText}>{t.form.successText1}</p>
         <p className={styles.successText}>{t.form.successText2}</p>
       </div>
@@ -173,6 +180,38 @@ export default function PreregisterForm({ id }: { id?: string }) {
           </div>
         </div>
       </div>
+
+      <div className={styles.fieldGroup}>
+        <label className={styles.consent} htmlFor="pg-consent">
+          <input
+            id="pg-consent"
+            type="checkbox"
+            className={styles.checkbox}
+            checked={consent}
+            onChange={(e) => {
+              setConsent(e.target.checked)
+              if (e.target.checked) setFieldErrors((prev) => ({ ...prev, consent: undefined }))
+            }}
+            disabled={status === 'loading'}
+            aria-invalid={Boolean(fieldErrors.consent)}
+            aria-describedby={fieldErrors.consent ? 'pg-consent-error' : undefined}
+          />
+          <span>{t.form.consentLabel}</span>
+        </label>
+        {fieldErrors.consent ? (
+          <p id="pg-consent-error" className={styles.fieldError}>
+            {fieldErrors.consent}
+          </p>
+        ) : null}
+      </div>
+
+      <p className={styles.privacyNote}>
+        {t.form.privacyPre}{' '}
+        <a href="/privacy" target="_blank" rel="noopener">
+          {t.form.privacyLink}
+        </a>
+        .
+      </p>
 
       {status === 'error' ? (
         <div className={styles.errorBox}>

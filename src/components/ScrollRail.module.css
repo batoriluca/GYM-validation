@@ -1,0 +1,128 @@
+/* The rail box covers the whole parent section, underneath its content, so
+   the curve sweeps behind the cards and text. It ignores the pointer
+   everywhere except on the line itself (.hit), where it is not covered. Faded at the top and bottom so the line starts
+   and ends softly. */
+.rail {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  pointer-events: none;
+}
+
+/* Marks the x the curve swings around; the parent sets --rail-center. */
+.anchor {
+  position: absolute;
+  top: 0;
+  left: var(--rail-center, 24px);
+  width: 0;
+  height: 0;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.track,
+.fill,
+.tail {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.track {
+  stroke: var(--line-strong);
+}
+
+/* Invisible, wide grab area along the line. touch-action: none so a finger
+   on the line drags it instead of scrolling the page. */
+.hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 26;
+  pointer-events: stroke;
+  cursor: grab;
+  touch-action: none;
+}
+
+.rail[data-dragging='true'] .hit {
+  cursor: grabbing;
+}
+
+/* The part of the curve above the spark (redrawn per frame by ScrollRail). */
+.fill {
+  filter: drop-shadow(0 0 5px rgba(237, 158, 214, 0.45));
+}
+
+/* A short bright comet tail trailing up the curve behind the spark. */
+.tail {
+  stroke-width: 2.5;
+}
+
+/* Positioned at the tip of the fill by ScrollRail (translate to x, y). */
+.sparkPos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The spark: a white-hot core with a violet glow, the same palette as the
+   hero capsule's spark. */
+.spark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 0 6px 1px #ffffff,
+    0 0 16px 4px rgba(237, 158, 214, 0.7),
+    0 0 36px 10px rgba(119, 67, 219, 0.45);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  animation: flicker 1.6s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+  50% {
+    opacity: 0.8;
+    scale: 0.82;
+  }
+}
+
+/* Spark and tail only show while the section is being scrolled through. */
+.rail[data-state='before'] .spark,
+.rail[data-state='after'] .spark {
+  opacity: 0;
+  animation: none;
+}
+
+.tail {
+  transition: opacity 0.3s ease;
+}
+
+.rail[data-state='before'] .tail,
+.rail[data-state='after'] .tail {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spark {
+    animation: none;
+  }
+}

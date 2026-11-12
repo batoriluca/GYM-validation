@@ -1,0 +1,50 @@
+/* Track page panel (holds the lyrics), in the landing system. */
+
+.panel {
+  position: relative;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+}
+
+.panel_head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel_title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+}
+
+.panel_head h2 {
+  margin: 0;
+  color: var(--fg);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.count {
+  color: var(--fg-3);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel_actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}

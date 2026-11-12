@@ -21,17 +21,28 @@ const SCROLL_IDLE_MS = 220
 
 // Bars generated once from fixed harmonics (never Math.random — server and
 // client must render the identical wave, or hydration mismatches).
-const WAVE_BAR_COUNT = 160
+const WAVE_BAR_COUNT = 480
+
+// Integer hash → 0..1. Pure integer math, so every JS engine produces the
+// same jitter (unlike a Math.sin-based hash).
+function hash01(i: number): number {
+  let x = Math.imul(i ^ 0x9e3779b9, 0x85ebca6b)
+  x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35)
+  x ^= x >>> 16
+  return (x >>> 0) / 4294967295
+}
 
 function generateWave(count: number): number[] {
   const bars: number[] = []
   for (let i = 0; i < count; i += 1) {
     const t = i / count
     const v =
-      Math.sin(t * Math.PI * 5.2 + 0.6) * 26 +
-      Math.sin(t * Math.PI * 13 + 1.9) * 15 +
-      Math.sin(t * Math.PI * 27 + 0.3) * 8
-    bars.push(Math.max(10, Math.min(100, Math.round(46 + v))))
+      Math.sin(t * Math.PI * 5.2 + 0.6) * 20 +
+      Math.sin(t * Math.PI * 13 + 1.9) * 13 +
+      Math.sin(t * Math.PI * 31 + 0.3) * 10 +
+      Math.sin(t * Math.PI * 73 + 2.2) * 8 +
+      (hash01(i) - 0.5) * 34
+    bars.push(Math.max(8, Math.min(100, Math.round(46 + v))))
   }
   return bars
 }
@@ -114,56 +125,24 @@ export default function Transport() {
   return (
     <header className={styles.transport}>
       <div className={styles.bar}>
-        <div className={styles.session}>
+        <a className={styles.session} href="#top" aria-label="GrowYourMusic">
           <Image
-            src="/img/gym-logo-mark.png"
-            alt="GrowYourMusic"
-            width={50}
-            height={40}
+            src="/img/gym-logo-glass.png"
+            alt=""
+            width={800}
+            height={667}
             className={styles.mark}
             priority
           />
-          {/* Hidden below 980px (see .sessionMeta in Transport.module.css) —
-              the mark alone carries the identity at that width, and the
-              image's own alt text keeps "GrowYourMusic" in the accessible
-              name regardless of what's visible. */}
-          <span className={styles.sessionMeta}>
-            <span className={styles.sessionName}>GrowYourMusic</span>
-            <span className={styles.armed}>{t.hero.badge}</span>
-          </span>
-        </div>
+        </a>
 
-        <nav className={styles.waveWrap}>
-          {/* Desktop-only status icon (see .playState, hidden below 980px) —
-              reflects real scroll activity: paused while idle, playing during
-              an actual scroll. */}
-          <span className={styles.playState} aria-hidden="true">
-            {isScrolling ? <IconPause /> : <IconPlay />}
-          </span>
-
+        <div className={styles.waveWrap} aria-hidden="true">
           <div className={styles.waveTrack} ref={trackRef}>
-            <svg
-              className={styles.waveSvg}
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-              focusable="false"
-            >
+            <svg className={styles.waveSvg} viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
               <defs>
-                {/* Same five stops as the spinning card/CTA border, laid out
-                    left to right instead of around an angle — static, no
-                    --border-angle animation. gradientUnits="userSpaceOnUse"
-                    with x1/x2 spanning the full 0-100 viewBox is required —
-                    the default objectBoundingBox sizes the gradient to each
-                    individual bar's own tiny width, so every bar paints its
-                    own miniature rainbow instead of one continuous sweep
-                    across the whole wave. */}
-                <linearGradient id="waveFillGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="0">
-                  <stop offset="0%" style={{ stopColor: 'var(--purple-1)' }} />
-                  <stop offset="25%" style={{ stopColor: 'var(--pink)' }} />
-                  <stop offset="50%" style={{ stopColor: 'var(--gold)' }} />
-                  <stop offset="75%" style={{ stopColor: 'var(--purple-2)' }} />
-                  <stop offset="100%" style={{ stopColor: 'var(--purple-1)' }} />
+                <linearGradient id="transportWaveFill" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="var(--brand)" />
+                  <stop offset="100%" stopColor="var(--brand-ink)" />
                 </linearGradient>
               </defs>
               <g>
@@ -173,14 +152,16 @@ export default function Transport() {
                 <WaveBars bright />
               </g>
             </svg>
-
-            <span className={styles.scrubHandle} style={{ left: `${progress * 100}%` }} aria-hidden="true" />
+            <span className={styles.scrubHandle} style={{ left: `${progress * 100}%` }} />
           </div>
 
-          <span className={styles.readout} aria-hidden="true">
-            {readout}
-          </span>
-        </nav>
+          <div className={styles.timecode}>
+            <span className={styles.playState}>
+              {isScrolling ? <IconPause /> : <IconPlay />}
+            </span>
+            <span className={styles.readout}>{readout}</span>
+          </div>
+        </div>
 
         <div className={styles.controls}>
           <LanguageSwitcher />

@@ -1,0 +1,80 @@
+/* Feed post (from the app's post component), in the landing system: glass
+   panel, hairline media frame and the liked state in brand ink. No author row
+   and no Promoted tag. */
+
+.post {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+}
+
+.media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--piece-radius-sm);
+  background: var(--bg);
+}
+
+.media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: cover;
+}
+
+.text {
+  margin: 0;
+  padding: 14px 6px 4px;
+  color: var(--fg-2);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+  padding: 12px 4px 4px;
+  border-top: 1px solid var(--line);
+  color: var(--fg-2);
+  font-size: 13px;
+}
+
+.likeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--piece-radius-sm);
+  color: var(--fg-2);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.likeBtn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.likeBtn[data-liked='true'] {
+  border-color: rgba(102, 87, 218, 0.45);
+  background: var(--brand-wash);
+  color: var(--fg);
+}
+
+.likeBtn[data-liked='true'] svg {
+  color: var(--brand-ink);
+}

@@ -30,13 +30,15 @@ GrowYourMusic combines, on one platform, what creators currently juggle across s
 - Next.js 14 App Router, CSS Modules + Tailwind installed, TypeScript. No test framework.
 - Form submission logic (validation, loading/error/retry states, webhook POST as `text/plain` to dodge CORS preflight) lives in `PreregisterForm.tsx` / `ValidationQuiz.tsx` and is out of scope to rebuild — this redesign only restyles those flows, it does not touch their submit mechanics or the Google Apps Script backend (`Code.gs`, intentionally not carried into this copy).
 - Must stay fully responsive (mobile through desktop).
-- Must reuse the existing color palette as a hard constraint (explicit user instruction, binding): background `#0b0a14`, purple `#6657da` / `#7743db`, accent gold `#ffd218`, accent pink `#ed9ed6`, secondary text `#b6b6b6`, white text.
+- Palette constraint lifted (Nov 2026, explicit user decision): the old dark purple/gold/pink palette was rejected as reading like AI slop. Only the logo's purple `#6657da` survives, as a scarce brand accent.
 
 ## Brand Commitments
 
+- Standing preference (Nov 2026): the landing page must read as an established team with a real business. The user chose the category standard on purpose, benchmarked against BandLab, Linear/Stripe and DistroKid / Spotify for Artists: restrained and product-led, on a dark theme (user preference). Copy must state the solution the visitor gets, never generic category labels and never the problem itself (user rule, Nov 2026). The visitor already knows the problem; the copy names the outcome. Worry about cancer → "Know your exact cancer risk and what measures to take", not "Stop worrying about cancer". So: no "Stop…", "No more…", "without…", "never lose…" headlines or closing clauses; say what they get ("Every collab in one thread", "Book a studio session in a few clicks", "so you both know exactly what was agreed"). Applies to en/ro/it alike. The quiz questions are the exception: they are research questions that ask about pain on purpose. One typeface only (Geist) across the website. Real partners/users exist and are to be named on the page once supplied (`src/data/partners.ts`); never invent them.
+
 - Name: **GrowYourMusic**. Tagline pattern: "Create. Collaborate. Get paid."
 - Existing social presence: Instagram (@growyourmusic.ro), YouTube, TikTok (@growyourmusic.ro), contact@growyourmusic.ro.
-- Existing type pairing used for expressive headline words (kept as a brand asset, not mandated verbatim for the new layout): Poppins (body/UI), Space Grotesk, Playfair Display italic, JetBrains Mono, as accents on different words of the hero headline.
+- Existing type pairing used for expressive headline words (kept as a brand asset, not mandated verbatim for the new layout): Poppins and accent faces belonged to the retired dark look; the landing page now uses Geist / Geist Mono. The social render routes still use Poppins.
 - All visible UI copy is Romanian-first with an English translation layer; do not alter copy meaning during redesign.
 
 ## Evidence on Hand

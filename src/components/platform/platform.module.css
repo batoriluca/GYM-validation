@@ -1,0 +1,101 @@
+/* The feature-card pieces, restyled to the landing system (DESIGN.md). The
+   outer panels use the platform's glowy glass card (see --piece-panel);
+   everything inside stays flat: --line hairlines, 8/12px radii, Geist, no
+   glows, blur or gradients. Purple only for brand moments, no yellow (white in its place; user request) for
+   money and reward, glass only on buttons. The page-level tokens (--bg-*,
+   --fg-*, --line*, --brand*, --gold-*, --glass-*) come from globals.css; the
+   names below are the app's, mapped onto them so shared rules keep working. */
+.scope {
+  --text-2: var(--fg-2);
+  --text-3: var(--fg-3);
+  --hue: var(--brand);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Shared recipes for the piece stylesheets. */
+  /* Panel background: the platform's glowy glass card (web_frontend shop
+     .card): a white sheen top-left, a violet glow bottom-right, a lavender
+     wash, over deep violet. Only the panel ground; content keeps its own
+     flat landing styling. */
+  --piece-panel:
+    radial-gradient(120% 70% at 20% 0%, rgba(255, 255, 255, 0.12), transparent 55%),
+    radial-gradient(90% 60% at 100% 100%, rgba(102, 87, 218, 0.22), transparent 70%),
+    radial-gradient(60% 140% at 92% 0%, rgba(119, 67, 219, 0.26), transparent 70%),
+    linear-gradient(160deg, rgba(157, 140, 255, 0.16), rgba(62, 44, 140, 0.1) 55%, rgba(20, 14, 44, 0.3)),
+    rgb(20, 15, 40);
+  --piece-inset: var(--bg-2);
+  --piece-edge: rgba(214, 204, 255, 0.26);
+  --piece-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -18px 36px rgba(102, 87, 218, 0.12),
+    0 22px 48px -24px rgba(4, 3, 12, 0.75);
+  --piece-radius: 12px;
+  --piece-radius-sm: 8px;
+
+  color: var(--fg);
+  font-family: inherit;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.scope *,
+.scope *::before,
+.scope *::after {
+  box-sizing: border-box;
+}
+
+/* Resets sit at zero class specificity (:where) so the app's own rules,
+   like .summary_title's margin, still win as they do on the platform. */
+:where(.scope) h2,
+:where(.scope) h3,
+:where(.scope) p,
+:where(.scope) ol,
+:where(.scope) ul,
+:where(.scope) dl,
+:where(.scope) dd {
+  margin: 0;
+}
+
+:where(.scope) ol,
+:where(.scope) ul {
+  padding: 0;
+  list-style: none;
+}
+
+.scope svg {
+  flex: none;
+}
+
+/* One piece at its natural (app) size. FeatureStack scales it down to fit
+   the card's visual column, so it is never reflowed into a layout the app
+   doesn't have. Widths match the column each component lives in on the
+   platform. */
+.piece {
+  width: max-content;
+  pointer-events: none;
+  user-select: none;
+}
+
+.piece[data-kind='product'] { width: 270px; }
+.piece[data-kind='chat'] { width: 600px; }
+.piece[data-kind='studio'] { width: 360px; }
+.piece[data-kind='calendar'] { width: 420px; }
+.piece[data-kind='library'] { width: 660px; }
+.piece[data-kind='leaderboard'] { width: 560px; }
+.piece[data-kind='post'] { width: 380px; }
+.piece[data-kind='lyrics'] { width: 460px; }
+.piece[data-kind='wallet'] { width: 380px; }
+.piece[data-kind='contract'] { width: 520px; }
+
+/* Phones: chat, library and leaderboard switch to their own phone layouts
+   (in their stylesheets) at a phone width, so they render near 1:1 instead
+   of being shrunk to unreadable text. */
+@media (max-width: 640px) {
+  .piece[data-kind='chat'],
+  .piece[data-kind='library'],
+  .piece[data-kind='leaderboard'] { width: 286px; }
+}
+
+.stack {
+  display: grid;
+  gap: 18px;
+}

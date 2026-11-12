@@ -205,7 +205,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'current_process' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.current_process}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.current_process}</p>
           <input
             type="text"
             className={formStyles.input}
@@ -218,7 +218,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'biggest_pain' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.biggest_pain}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.biggest_pain}</p>
           <input
             type="text"
             className={formStyles.input}
@@ -231,7 +231,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'has_paid' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.has_paid}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.has_paid}</p>
           <div className={styles.optionsGroup}>
             {(['Da', 'Nu'] as const).map((option) => (
               <label
@@ -254,7 +254,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'paid_amount' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.paid_amount}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.paid_amount}</p>
           <input
             type="text"
             className={formStyles.input}
@@ -267,7 +267,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'frequency' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.frequency}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.frequency}</p>
           <div className={styles.optionsGroup}>
             {FREQUENCY_VALUES.map((option) => (
               <label
@@ -290,7 +290,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'top_features' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.top_features}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.top_features}</p>
           <div className={styles.optionsGroup}>
             {FEATURE_VALUES.map((option) => (
               <label
@@ -314,7 +314,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'would_pay' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.would_pay}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.would_pay}</p>
           <div className={styles.optionsGroup}>
             {(['Da', 'Nu', 'Depinde'] as const).map((option) => (
               <label
@@ -337,7 +337,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'price_range' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.price_range}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.price_range}</p>
           <div className={styles.optionsGroup}>
             {PRICE_VALUES.map((option) => (
               <label
@@ -360,7 +360,7 @@ export default function ValidationQuiz({
 
       {currentStepId === 'concerns' ? (
         <div className={formStyles.fieldGroup}>
-          <p className={styles.question}>{t.quiz.questions.concerns}</p>
+          <p className={`${styles.question} glass-text`}>{t.quiz.questions.concerns}</p>
           <input
             type="text"
             className={formStyles.input}

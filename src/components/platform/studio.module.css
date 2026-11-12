@@ -1,0 +1,95 @@
+/* Studio booking panel (from the app's studio page), in the landing system:
+   flat panel, white price, glass buttons. */
+
+.panel {
+  padding: 22px;
+  border: 1px solid var(--piece-edge);
+  border-radius: var(--piece-radius);
+  background: var(--piece-panel);
+  box-shadow: var(--piece-shadow);
+}
+
+.priceBlock {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.priceMain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  margin: 0;
+}
+
+.priceMain strong {
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.priceMain span {
+  color: var(--fg-2);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.priceSub {
+  margin: 6px 0 0;
+  color: var(--fg-3);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel_actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 12px;
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-shadow: 0 1px 8px rgba(185, 176, 255, 0.45);
+  white-space: nowrap;
+}
+
+.cta svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Secondary: the same glass, clear (like the quiz Back button). */
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 12px;
+  background: var(--glass-fill-clear);
+  box-shadow: var(--glass-shadow-clear);
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.ghost svg {
+  width: 18px;
+  height: 18px;
+}

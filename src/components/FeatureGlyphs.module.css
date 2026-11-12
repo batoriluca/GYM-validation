@@ -1,0 +1,67 @@
+/* Raised violet glass tile, scaled down from the highlight covers. */
+.tile {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 17px;
+  background:
+    radial-gradient(120% 90% at 30% 0%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(160deg, #4b3880 0%, #2c2052 52%, #1d1538 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 18px 28px -14px rgba(8, 4, 20, 0.85);
+}
+
+.glyph {
+  width: 34px;
+  height: 34px;
+  overflow: visible;
+  filter: drop-shadow(0 3px 6px rgba(10, 4, 30, 0.55)) drop-shadow(0 0 9px rgba(185, 176, 255, 0.35));
+}
+
+.lg {
+  width: 84px;
+  height: 84px;
+  border-radius: 23px;
+}
+
+.lg .glyph {
+  width: 48px;
+  height: 48px;
+}
+
+/* Free size for hero use: --tile sets the edge, everything else follows. */
+.xl {
+  width: var(--tile, 160px);
+  height: var(--tile, 160px);
+  border-radius: calc(var(--tile, 160px) * 0.27);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 calc(var(--tile, 160px) * 0.22) calc(var(--tile, 160px) * 0.32) calc(var(--tile, 160px) * -0.14) rgba(8, 4, 20, 0.9);
+}
+
+.xl .glyph {
+  width: calc(var(--tile, 160px) * 0.57);
+  height: calc(var(--tile, 160px) * 0.57);
+  filter: drop-shadow(0 6px 12px rgba(10, 4, 30, 0.55)) drop-shadow(0 0 18px rgba(185, 176, 255, 0.35));
+}
+
+@media (max-width: 900px) {
+  .tile:not(.lg):not(.xl) {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .tile:not(.lg):not(.xl) .glyph {
+    width: 28px;
+    height: 28px;
+  }
+}
